@@ -1,0 +1,337 @@
+body{
+    margin : 0;
+    padding : 0;
+background-color: #43b05c;
+font-family: Helvetica, sans-serif
+}
+
+main{
+    display:flex;
+    height:100vh;
+    flex-direction: column;
+    width:100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.to-do-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 501px;
+  height: 105px;
+  border-radius: 51px;
+  box-shadow: 0 2px 4px 0 rgba(153, 153, 153, 0.5);
+  background-color: #ffffff;
+  transform: scale(0.9);
+}
+
+.to-do-btn .td-btn-text{
+    font-family: Helvetica;
+    font-size: 44px;
+    font-weight: bold;
+    color: #999999;
+    margin-left: 20px;
+}
+
+.add-btn{
+    margin-left: 20px;
+    width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: lighter;
+  background-color: #43b05c;
+  color:white;
+  text-align: center;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.modal{
+    z-index: 1;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.603);
+    height:100vh;
+    width:100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active{
+    height: 0px !important;
+}
+
+.popup{
+   
+    position: relative;
+        width: 700px;
+        height: 454px;
+        border-radius: 14px;
+        background-color: #ffffff;
+        padding:10px; 
+      }
+
+.hidden{
+    display: none !important;
+}
+
+.pop-title {
+    text-align: center;
+    padding: 25px 0px;
+    font-family: Helvetica;
+    font-size: 24px;
+    font-weight: bold;
+    color: #999999;
+  }
+
+.pp-add-task{
+    font-family: Helvetica;
+    font-size: 18px;
+    font-weight: 300;
+    color: #43b05c;
+  }
+
+  .pp-container{
+      display:flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 10px 60px;
+  }
+
+  .pp-container > *{
+      width: 100%;
+      padding-bottom: 25px;
+  }
+
+  .ip{
+      margin:6px 0px;
+      outline: none;
+      border:none;
+      border-bottom: 1px solid  #bbbbbb;
+      font-family: Helvetica;
+      font-size: 18px;
+      font-weight: 300;
+      color: #bbbbbb;
+    }
+
+    .flexed{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .landscape{
+        width:100%;
+    }
+
+    ::placeholder{
+        font-size: 16px;
+        color: #bbbbbb;
+    }
+
+    .pp-date-time > * {
+        width:50%;
+        
+    }
+
+    .ipd{
+    width:90%; 
+    }
+
+    .labels{
+        font-family: Helvetica;
+  font-size: 14px;
+  font-weight: 300;
+  padding-right: 20px;
+  color: #999999;
+    }
+
+    .ip-radio{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .pp-footer{
+        padding-top:40px;
+    }
+
+
+    .green-btn{
+        margin-left: 150px;
+        text-align: center;
+        line-height: 51px;
+ font-family: Helvetica;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  width: 141px;
+  height: 51px;
+  border-radius: 7px;
+  background-color: #43b05c;
+  cursor: pointer;
+    }
+
+    .to-do-list{
+        margin-top:40px;
+        width:80%;
+        height:auto;
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 30px 50px;
+    }
+
+    .scale-out{
+        transform: scale(0.7);
+    }
+
+    .search-bar{
+        width:100%;
+        height:44px;
+        justify-content: flex-end;
+    }
+
+    .search-btn{
+        width:220px;
+        height:42px;
+        border: 1px solid #bbbbbbd2;
+        border-radius: 42px;
+        cursor: pointer;
+    }
+
+    .search{
+        position: relative;
+        height: 12px;
+        width:12px;
+        border: 2px solid #43b05c;
+        border-radius: 50%;
+        transform: translateY(-2px);
+       
+    }
+    .search::after{
+        content: "";
+        position: absolute;
+        height:7px;
+        width:2px;
+        background-color: #43b05c;
+        left:13px;
+        transform: rotate(-45deg);
+        top:10px
+    }
+
+    .ip-search{
+        outline:none;
+        border:none;
+        /* line-height:42px; */
+    }
+
+    .taskpanel-title{
+        font-family: Helvetica;
+        /* font-size: 36px; */
+        margin: 0;
+        font-size: 32px;
+        letter-spacing: 1.18px;
+        font-weight: 300;
+        color: #43b05c;
+    }
+
+    .tasks-container{
+        height:300px;
+        overflow: hidden;
+    }
+
+    .modes{
+        justify-content: flex-end;
+    }
+
+    .modes > * {
+        margin: 0px 10px;
+        color:#bbbbbb;
+        padding:10px 20px;
+       
+    }
+
+    .m-active{
+        border-radius:20px;
+        border: 1px solid #43b05c;
+    }
+
+    .item-left{
+        position: absolute;
+        left:100px;
+    }
+
+    .task-img{
+        height:50px;
+        width:50px;
+        border: 1px solid #bbbbbb;
+        border-radius: 50%;
+        margin-right: 30px;
+        font-size: 30px;
+        line-height: 50px;
+        color: #43b05c;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .task-img:hover{
+        background-color: #43b05c;
+        color:white;
+        font-weight: 600;
+        transition: 0.1s ease-in;
+    }
+
+    .task-box{
+       width:60%;
+    }
+
+    .tasks{
+        padding-top: 10px;
+    }
+
+    .task-card{
+        justify-content: flex-start;
+        padding: 12px;
+        border-bottom: 1px solid #bbbbbb;
+    }
+
+    .task-name{
+        font-size: 20px;
+        font-weight: 300;
+        color: #616161;
+    }
+
+    .task-desc{
+        font-family: Helvetica;
+        font-size: 14px;
+        font-weight: 300;
+        color: #616161;
+        padding-top: 8px; 
+    }
+
+    .task-rem{
+        font-size: 14px;
+        font-weight: 300;
+        color: #616161;
+    }
+
+    #alert-name, #alert-time {
+        color: red;
+        position: absolute;
+        font-size: 14px;
+        text-align: right;
+    }
+
+    #alert-name{
+      
+        margin: -18px 0px 0px 100px;
+
+    }
+
+    #alert-time{
+        margin: -19px 0px 0px 68px;
+    }

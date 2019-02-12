@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+    <!--Main-->
+    <main>
+        <section class="to-do-btn">
+            <p class="td-btn-text">Your TO-DO List </p>
+            <div class="add-btn">+</div>
+        </section>
+
+
+        <!--popup-->
+        <section class="modal hidden">
+            <div class="popup">
+                <div class="pop-title">Add a new Task</div>
+
+                <section class="pp-container">
+                    <div class="pp-title">
+                        <div class="pp-add-task">Add Task</div>
+                        <span id="alert-name"></span>
+                        <input class="ip landscape" type="text" placeholder="What needs to be done?" />
+                    </div>
+                    <div class="pp-desc">
+                        <div class="pp-add-task">Description</div>
+                        <input class="ip landscape" type="text" placeholder="Describe your task" />
+                    </div>
+
+                    <!--Date and time-->
+                    <div class="pp-date-time flexed">
+                        <div class="pp-date">
+                            <div class="pp-add-task">Date</div>
+                            <input class="ip landscape ipd" type="date" placeholder="mm/dd/yyyy" />
+                        </div>
+                        <div class="pp-time">
+                            <div class="pp-add-task">Time</div>
+                            <span id="alert-time"></span>
+                            <input class="ip landscape ipt" type="text" placeholder="hr:min:ss" />
+                        </div>
+                    </div>
+
+                    <!--Submit & radio Button-->
+                    <div class="pp-footer flexed">
+                        <div class="ip-radio">
+                            <input type="radio" class="radio" />
+                            <label class="labels">Personal</label>
+                        </div>
+                        <div class="ip-radio">
+                            <input type="radio" class="radio" />
+                            <label class="labels">Business</label>
+                        </div>
+                        <div class="ip-radio">
+                            <input type="radio" class="radio" />
+                            <label class="labels">Other</label>
+                        </div>
+
+                        <div class="green-btn">
+                            Save
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </section>
+
+        <div class="to-do-list hidden">
+            
+            <!--Search Bar-->
+            <div class="search-bar flexed">
+                <div class="search-btn flexed">
+                    <input type="text" class="ip-search" placeholder="search by task name" />
+                    <div class="search">
+                    </div>
+                </div>
+            </div>
+
+            <!--Tasks Container-->
+            <p class="taskpanel-title">Tasks</p>
+            <section class="tasks-container">
+                <div class="tasks"></div>
+            </section>
+
+            <div class="modes flexed">
+                <div class="item-left">No item Left</div>
+                <div class="all m-active">All</div>
+                <div class="cmp">Completed</div>
+                <div class="act">Active</div>
+                <div class="clear-cmp">Clear Completed</div>
+
+            </div>
+        </div>
+
+
+        <!--Task Container-->
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
