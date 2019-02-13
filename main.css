@@ -7,11 +7,16 @@ font-family: Helvetica, sans-serif
 
 main{
     display:flex;
-    height:100vh;
+    height:auto;
     flex-direction: column;
     width:100%;
     justify-content: center;
     align-items: center;
+   
+}
+
+.max-vh{
+    height:100vh;
 }
 
 .to-do-btn{
@@ -53,8 +58,8 @@ main{
     z-index: 1;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.603);
-    height:100vh;
-    width:100vw;
+    height:100%;
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -258,6 +263,7 @@ main{
     .m-active{
         border-radius:20px;
         border: 1px solid #43b05c;
+        transition: 0.5s ease-in-out;
     }
 
     .item-left{
@@ -317,6 +323,7 @@ main{
         font-size: 14px;
         font-weight: 300;
         color: #616161;
+        padding-right:30px; 
     }
 
     #alert-name, #alert-time {
@@ -334,4 +341,44 @@ main{
 
     #alert-time{
         margin: -19px 0px 0px 68px;
+    }
+
+    .see-all{
+        padding-top: 10px; 
+        color: #43b05c;
+        text-align: right;
+        width:95%;
+        cursor: pointer;
+    }
+
+    .see-all-active{
+        height: auto;
+        overflow: none;
+    }
+
+    .all, .cmp , .act {
+        cursor: pointer;
+    } 
+
+    .close-tag{
+        position: relative;
+        cursor: pointer;
+    }
+    
+    .close{
+        width:3px;
+        height: 18px;
+        background-color: #43b05c;
+        transform: rotate(-45deg);
+    }
+
+
+
+    .close::after{
+        content: "";
+        position: absolute;
+        background-color: #43b05c;
+        height:18px;
+        width: 3px;
+        transform: rotate(90deg);
     }

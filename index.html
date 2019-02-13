@@ -12,7 +12,7 @@
 <body>
 
     <!--Main-->
-    <main>
+    <main class="max-vh">
         <section class="to-do-btn">
             <p class="td-btn-text">Your TO-DO List </p>
             <div class="add-btn">+</div>
@@ -49,7 +49,8 @@
                     </div>
 
                     <!--Submit & radio Button-->
-                    <div class="pp-footer flexed">
+                  
+                    <div class="pp-footer flexed">  
                         <div class="ip-radio">
                             <input type="radio" class="radio" />
                             <label class="labels">Personal</label>
@@ -87,13 +88,15 @@
             <p class="taskpanel-title">Tasks</p>
             <section class="tasks-container">
                 <div class="tasks"></div>
+                <div class="tasks-cmp hidden"></div>
+                <div class="tasks-act hidden"></div>
             </section>
-
+            <div class="see-all">See All</div>
             <div class="modes flexed">
                 <div class="item-left">No item Left</div>
-                <div class="all m-active">All</div>
-                <div class="cmp">Completed</div>
-                <div class="act">Active</div>
+                <div class="all m-active" onclick="AllTasksController()">All</div>
+                <div class="cmp" onclick="completed()">Completed</div>
+                <div class="act"onclick="active()">Active</div>
                 <div class="clear-cmp">Clear Completed</div>
 
             </div>
