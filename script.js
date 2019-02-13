@@ -111,9 +111,10 @@ function timeRemaining(date, time) {
     // console.log(currentDate);
     var currentDate = new Date();
     var timeDiff = Math.abs(currentDate.getTime() - postDate.getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
 
-    var currentHour = new Date().getUTCHours();
+    var currentHour = new Date().getHours();
+    console.log(currentHour);
     var timezies = time.split(":");
 
     var timeChange = Math.abs(currentHour - timezies[0]);
@@ -121,7 +122,7 @@ function timeRemaining(date, time) {
 
     if (!diffDays) {
         // console.log(diffDays);
-        return `${timeChange - 3} hours ago`;
+        return `${timeChange } hours ago`;
     }
     else {
         return `${diffDays} days and ${timeChange} hours ago`;
@@ -343,6 +344,8 @@ function active() {
 }
 
 function addAllView(){
+    var searchValue;
+
     taskList.length >0 && taskList.map( x => {
         var taskCard = document.createElement('div');
         var taskImg = document.createElement('div');
@@ -391,3 +394,81 @@ function addAllView(){
 
     });
 }
+
+
+function searchFunc(search){
+    searchDiv.classList.remove("hidden");;
+    taskPanel.classList.add("hidden");
+    completeTasks.classList.add("hidden");
+    activeTasks.classList.add("hidden");
+    var viewTasks = taskList.filter(x => x.title.includes(search));
+    console.log(viewTasks);
+    if(search){
+        viewTasks.length > 0 && viewTasks.map( x => {
+            var taskCard = document.createElement('div');
+            var taskImg = document.createElement('div');
+            var taskBox = document.createElement('div');
+            var taskTitle = document.createElement('div');
+            var taskDesc = document.createElement('div');
+            var taskRemainder = document.createElement('div');
+    
+    
+            taskCard.className = "flexed task-card";
+            taskImg.className = "task-img";
+            taskBox.className = "flexed-col task-box"
+            taskTitle.className = "task-name"
+            taskDesc.className = "task-desc"
+            taskRemainder.className = "task-rem"
+    
+    
+            taskImg.innerText = "T";
+            taskTitle.innerText = x.title;
+            taskDesc.innerText = x.desc;
+            taskRemainder.innerText = timeRemaining(x.date, x.time);
+            // timeRemains;
+    
+    
+            taskCard.appendChild(taskImg);
+            taskCard.appendChild(taskBox);
+            taskBox.appendChild(taskTitle);
+            taskBox.appendChild(taskDesc);
+            taskCard.appendChild(taskRemainder);
+            searchDiv.appendChild(taskCard);
+    
+            if(x.status == "completed"){
+                taskTitle.style.textDecoration = "line-through";
+                taskDesc.style.textDecoration = "line-through";
+            }
+    
+            document.querySelector(".item-left").innerText = `${taskList.length} item left`;
+    
+            taskImg.addEventListener('click', function () {
+                taskTitle.style.textDecoration = "line-through";
+                taskDesc.style.textDecoration = "line-through";
+                x.status = "completed";
+                document.querySelector(".item-left").innerText = `${taskList.length} item left`;
+                console.log(taskList);
+            });
+    
+    
+        });
+    }
+    else 
+    {
+        searchDiv.classList.add("hidden");;
+        taskPanel.classList.remove("hidden");
+    }
+   
+    
+
+
+}
+
+var searchBtn = document.querySelector(".ip-search");
+var searchDiv = document.querySelector(".searchfunc");
+
+searchBtn.addEventListener('change',function(){
+    searchValue = searchBtn.value;
+    searchFunc(searchValue);
+    console.log(searchValue);
+})
