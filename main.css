@@ -373,7 +373,6 @@ main{
     }
 
 
-
     .close::after{
         content: "";
         position: absolute;

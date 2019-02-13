@@ -109,6 +109,7 @@ function validateData(data) {
 function timeRemaining(date, time) {
     var postDate = new Date(date);
     // console.log(currentDate);
+  
     var currentDate = new Date();
     var timeDiff = Math.abs(currentDate.getTime() - postDate.getTime());
     var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
@@ -120,6 +121,9 @@ function timeRemaining(date, time) {
     var timeChange = Math.abs(currentHour - timezies[0]);
     // console.log(timeChange);
 
+    if(!date){
+        return `${timeChange } hours ago`;
+    }
     if (!diffDays) {
         // console.log(diffDays);
         return `${timeChange } hours ago`;
@@ -201,31 +205,6 @@ function completed() {
             });
             
             // var allTasks = document.querySelector(".all");
-            allBtn.addEventListener('click', function(){
-                if(completeTasks.hasChildNodes()){
-                completeTasks.removeChild(taskCard);
-                }
-                cmpBtn.disabled = false;
-                actBtn.disabled = false;
-            });
-
-            cmpBtn.addEventListener('click', function(){
-                if(completeTasks.hasChildNodes()){
-                    completeTasks.removeChild(taskCard);
-                    }
-                allBtn.disabled = false;
-                actBtn.disabled = false;
-            });
-
-
-            actBtn.addEventListener('click', function(){
-                if(completeTasks.hasChildNodes()){
-                    completeTasks.removeChild(taskCard);
-                    }
-                cmpBtn.disabled = false;
-                allBtn.disabled = false;
-            });
-
 
         });
     }
@@ -471,4 +450,32 @@ searchBtn.addEventListener('change',function(){
     searchValue = searchBtn.value;
     searchFunc(searchValue);
     console.log(searchValue);
-})
+});
+
+allBtn.addEventListener('click', function(){
+    console.log(completeTasks);
+    if(completeTasks.hasChildNodes()){
+    completeTasks.removeChild();
+    }
+    cmpBtn.disabled = false;
+    actBtn.disabled = false;
+});
+
+cmpBtn.addEventListener('click', function(){
+    console.log(completeTasks.childNodes);
+    if(completeTasks.hasChildNodes()){
+        completeTasks.childNodes.forEach(x => removeChild(x) ); 
+        }
+    allBtn.disabled = false;
+    actBtn.disabled = false;
+});
+
+
+actBtn.addEventListener('click', function(){
+    if(completeTasks.hasChildNodes()){
+        console.log(completeTasks);
+        completeTasks.childNodes.forEach(x => removeChild(x) ); 
+        }
+    cmpBtn.disabled = false;
+    allBtn.disabled = false;
+});
