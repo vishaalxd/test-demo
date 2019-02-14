@@ -67,14 +67,13 @@ save.addEventListener('click', function () {
 
         // console.log(taskList);
 
-        if(taskPanel.hasChildNodes()){
-            var ele = document.querySelectorAll(".task-card");
-            ele.forEach(x => taskPanel.removeChild(x)); 
-          }
-        
-          addAllView();
-          inputs.forEach(x => x.value = null);
+
+        addAllView();
+        inputs.forEach(x => x.value = null);
+        document.getElementById("alert-time").innerText = ""
+        document.getElementById("alert-name").innerText = "";
         modal.classList.add("hidden");
+
     }
 
     else {
@@ -109,27 +108,27 @@ function validateData(data) {
 function timeRemaining(date, time) {
     var postDate = new Date(date);
     // console.log(currentDate);
-  
+
     var currentDate = new Date();
     var timeDiff = Math.abs(currentDate.getTime() - postDate.getTime());
     var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
 
     var currentHour = new Date().getHours();
-    console.log(currentHour);
+    // console.log(currentHour);
     var timezies = time.split(":");
 
     var timeChange = Math.abs(currentHour - timezies[0]);
     // console.log(timeChange);
 
-    if(!date){
-        return `${timeChange } hours ago`;
+    if (!date) {
+        return `${timeChange} hours to go`;
     }
     if (!diffDays) {
         // console.log(diffDays);
-        return `${timeChange } hours ago`;
+        return `${timeChange} hours to go`;
     }
     else {
-        return `${diffDays} days and ${timeChange} hours ago`;
+        return `${diffDays} days and ${timeChange} hours to go`;
     }
 }
 
@@ -142,6 +141,10 @@ SeeAllBtn.addEventListener('click', function () {
     taskContainer.classList.toggle("see-all-active");
     var main = document.querySelector("main");
     main.classList.toggle("max-vh");
+    var toDoBtn = document.querySelector(".to-do-btn");
+    toDoBtn.classList.toggle("hidden");
+    var navBtns = document.querySelector(".nav-btn");
+    navBtns.classList.toggle('hidden')
 });
 
 
@@ -154,11 +157,25 @@ function completed() {
     activeTasks.classList.add("hidden");
     // console.log(cmpBtn);
     cmpBtn.disabled = true;
-    
-    
+
+
+
+
+    if (completeTasks.hasChildNodes()) {
+        var ele = document.querySelectorAll(".task-card");
+        ele.forEach(y => console.log(y.parentNode))
+        // console.log("child:" + completeTasks.hasChildNodes());
+        ele.forEach(x => {
+            // console.log(x);
+            x.remove()
+
+        });
+
+    }
+
     if (taskList.length > 0) {
         taskFiltered = taskList.filter(x => x.status == "completed");
-        console.log(taskFiltered);
+        // console.log(taskFiltered);
 
 
         taskFiltered.map(x => {
@@ -198,12 +215,18 @@ function completed() {
             taskCard.appendChild(taskClose);
             completeTasks.appendChild(taskCard);
 
-            taskClose.addEventListener('click', function(){
-                taskList.pop(x);
-                completeTasks.removeChild(taskCard);
-                console.log(taskList);
+            taskClose.addEventListener('click', function () {
+
+                var newtaskList
+                taskList = taskList.filter(y => y.title != x.title)
+
+                console.table(taskList);
+                // console.table(x);
+                taskCard.remove(x);
+                // completeTasks.removeChild(taskCard);
+                // console.table(taskList);
             });
-            
+
             // var allTasks = document.querySelector(".all");
 
         });
@@ -220,112 +243,114 @@ function AllTasksController() {
     taskPanel.classList.remove("hidden");
     completeTasks.classList.add("hidden");
     activeTasks.classList.add("hidden");
-    if(taskPanel.hasChildNodes()){
-        var ele = document.querySelectorAll(".task-card");
-        console.log(ele);
-        ele.forEach(x => {taskPanel.removeChild(x)
-            console.log(x);
-      });
 
-}
-addAllView();
+    // if (taskPanel.hasChildNodes()) {
+    //     var ele = document.querySelectorAll(".task-card");
+    //     ele.forEach(x => {
+    //         taskPanel.removeChild(x)
+    //         console.log(x);
+    //     });
+
+    // }
+    addAllView();
 }
 
 
 
 
 function active() {
-    // allBtn.classList.remove("m-active");
-    // cmpBtn.classList.remove("m-active");
-    // actBtn.classList.add("m-active");
-    // activeTasks.classList.remove("hidden");
-    // completeTasks.classList.add("hidden");
-    // taskPanel.classList.add("hidden");
-    // console.log(actBtn);
-    // actBtn.disabled = true;
-    
-    
-    // if (taskList.length > 0) {
-    //     taskFiltered = taskList.filter(x => x.status == "pending");
-    //     console.log(taskFiltered);
+    allBtn.classList.remove("m-active");
+    cmpBtn.classList.remove("m-active");
+    actBtn.classList.add("m-active");
+    activeTasks.classList.remove("hidden");
+    completeTasks.classList.add("hidden");
+    taskPanel.classList.add("hidden");
+
+    if (activeTasks.hasChildNodes()) {
+        var ele = document.querySelectorAll(".task-card");
+        // ele.forEach(y => console.log(y.parentNode))
+        // console.log("child:" + activeTasks.hasChildNodes());
+        ele.forEach(x => {
+            // console.log(x);
+            x.remove();
+
+        });
+
+    }
+
+    if (taskList.length > 0) {
+        taskFiltered = taskList.filter(x => x.status == "pending");
+        // console.log(taskFiltered);
 
 
-    //     taskFiltered.map(x => {
-    //         console.log(taskList);
-    //         var taskCard = document.createElement('div');
-    //         var taskImg = document.createElement('div');
-    //         var taskBox = document.createElement('div');
-    //         var taskTitle = document.createElement('div');
-    //         var taskDesc = document.createElement('div');
-    //         var taskRemainder = document.createElement('div');
-    //         var taskClose = document.createElement('div')
-    //         var closeBtn = document.createElement('div');
+        taskFiltered.map(x => {
+            console.log(taskList);
+            var taskCard = document.createElement('div');
+            var taskImg = document.createElement('div');
+            var taskBox = document.createElement('div');
+            var taskTitle = document.createElement('div');
+            var taskDesc = document.createElement('div');
+            var taskRemainder = document.createElement('div');
+            var taskClose = document.createElement('div')
+            var closeBtn = document.createElement('div');
 
 
-    //         taskCard.className = "flexed task-card";
-    //         taskImg.className = "task-img";
-    //         taskBox.className = "flexed-col task-box"
-    //         taskTitle.className = "task-name"
-    //         taskDesc.className = "task-desc"
-    //         taskRemainder.className = "task-rem"
-    //         closeBtn.className = "close";
-    //         taskClose.className = "close-tag"
+            taskCard.className = "flexed task-card";
+            taskImg.className = "task-img";
+            taskBox.className = "flexed-col task-box"
+            taskTitle.className = "task-name"
+            taskDesc.className = "task-desc"
+            taskRemainder.className = "task-rem"
+            closeBtn.className = "close";
+            taskClose.className = "close-tag"
 
-    //         taskImg.innerText = "T";
-    //         taskTitle.innerText = x.title;
-    //         taskDesc.innerText = x.desc;
-    //         taskRemainder.innerText = timeRemaining(x.date, x.time);
-    //         // timeRemains;
-
-
-    //         taskClose.appendChild(closeBtn);
-    //         taskCard.appendChild(taskImg);
-    //         taskCard.appendChild(taskBox);
-    //         taskBox.appendChild(taskTitle);
-    //         taskBox.appendChild(taskDesc);
-    //         taskCard.appendChild(taskRemainder);
-    //         taskCard.appendChild(taskClose);
-    //         activeTasks.appendChild(taskCard);
-
-    //         // taskClose.addEventListener('click', function(){
-    //         //     taskList.pop(x);
-    //         //     console.log(x);
-    //         //     completeTasks.removeChild(taskCard);
-    //         // });
-            
-    //         allBtn.addEventListener('click', function(){
-    //             activeTasks.removeChild(taskCard);
-    //             cmpBtn.disabled = false;
-    //             actBtn.disabled = false;
-    //         });
-
-    //         cmpBtn.addEventListener('click', function(){
-    //             activeTasks.removeChild(taskCard);
-    //             allBtn.disabled = false;
-    //             actBtn.disabled = false;
-    //         });
+            taskImg.innerText = "T";
+            taskTitle.innerText = x.title;
+            taskDesc.innerText = x.desc;
+            taskRemainder.innerText = timeRemaining(x.date, x.time);
+            // timeRemains;
 
 
-    //         actBtn.addEventListener('click', function(){
-    //             activeTasks.removeChild(taskCard);
-    //             cmpBtn.disabled = false;
-    //             allBtn.disabled = false;
-    //         });
+            taskClose.appendChild(closeBtn);
+            taskCard.appendChild(taskImg);
+            taskCard.appendChild(taskBox);
+            taskBox.appendChild(taskTitle);
+            taskBox.appendChild(taskDesc);
+            taskCard.appendChild(taskRemainder);
+            taskCard.appendChild(taskClose);
+            activeTasks.appendChild(taskCard);
+
+            taskClose.addEventListener('click', function () {
+                taskList = taskList.filter(y => y.title != x.title)
+                console.table(taskList);
+                taskCard.remove(x);
+            });
 
 
-
-
-    //     });
-    // }
+        });
+    }
     // else
-     return null;
+    // return null;
 
 }
 
-function addAllView(){
+function addAllView() {
     var searchValue;
 
-    taskList.length >0 && taskList.map( x => {
+
+    if (taskPanel.hasChildNodes()) {
+        var ele = document.querySelectorAll(".task-card");
+        ele.forEach(y => console.log(y.parentNode))
+        // console.log("child:" + taskPanel.hasChildNodes());
+        ele.forEach(x => {
+            // console.log(x);
+            x.remove()
+
+        });
+
+    }
+
+    taskList.length > 0 && taskList.map(x => {
         var taskCard = document.createElement('div');
         var taskImg = document.createElement('div');
         var taskBox = document.createElement('div');
@@ -356,7 +381,7 @@ function addAllView(){
         taskCard.appendChild(taskRemainder);
         taskPanel.appendChild(taskCard);
 
-        if(x.status == "completed"){
+        if (x.status == "completed") {
             taskTitle.style.textDecoration = "line-through";
             taskDesc.style.textDecoration = "line-through";
         }
@@ -368,59 +393,79 @@ function addAllView(){
             taskDesc.style.textDecoration = "line-through";
             x.status = "completed";
             document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-            console.log(taskList);
+            // console.log(taskList);
         });
 
     });
 }
 
 
-function searchFunc(search){
+var searchBtn = document.querySelector(".ip-search");
+var searchDiv = document.querySelector(".searchfunc");
+
+searchBtn.addEventListener('change', function () {
+    searchValue = searchBtn.value;
+    searchFunc(searchValue);
+    console.log(searchValue);
+});
+
+
+function searchFunc(search) {
     searchDiv.classList.remove("hidden");;
     taskPanel.classList.add("hidden");
     completeTasks.classList.add("hidden");
     activeTasks.classList.add("hidden");
     var viewTasks = taskList.filter(x => x.title.includes(search));
     console.log(viewTasks);
-    if(search){
-        viewTasks.length > 0 && viewTasks.map( x => {
+
+    if (searchDiv.hasChildNodes()) {
+        var ele = document.querySelectorAll(".task-card");
+        ele.forEach(x => {
+            // console.log(x);
+            x.remove()
+
+        });
+    }
+
+    if (search) {
+        viewTasks.length > 0 && viewTasks.map(x => {
             var taskCard = document.createElement('div');
             var taskImg = document.createElement('div');
             var taskBox = document.createElement('div');
             var taskTitle = document.createElement('div');
             var taskDesc = document.createElement('div');
             var taskRemainder = document.createElement('div');
-    
-    
+
+
             taskCard.className = "flexed task-card";
             taskImg.className = "task-img";
             taskBox.className = "flexed-col task-box"
             taskTitle.className = "task-name"
             taskDesc.className = "task-desc"
             taskRemainder.className = "task-rem"
-    
-    
+
+
             taskImg.innerText = "T";
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
             taskRemainder.innerText = timeRemaining(x.date, x.time);
             // timeRemains;
-    
-    
+
+
             taskCard.appendChild(taskImg);
             taskCard.appendChild(taskBox);
             taskBox.appendChild(taskTitle);
             taskBox.appendChild(taskDesc);
             taskCard.appendChild(taskRemainder);
             searchDiv.appendChild(taskCard);
-    
-            if(x.status == "completed"){
+
+            if (x.status == "completed") {
                 taskTitle.style.textDecoration = "line-through";
                 taskDesc.style.textDecoration = "line-through";
             }
-    
+
             document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-    
+
             taskImg.addEventListener('click', function () {
                 taskTitle.style.textDecoration = "line-through";
                 taskDesc.style.textDecoration = "line-through";
@@ -428,54 +473,13 @@ function searchFunc(search){
                 document.querySelector(".item-left").innerText = `${taskList.length} item left`;
                 console.log(taskList);
             });
-    
-    
+
+
         });
     }
-    else 
-    {
+    else {
         searchDiv.classList.add("hidden");;
         taskPanel.classList.remove("hidden");
     }
-   
-    
-
 
 }
-
-var searchBtn = document.querySelector(".ip-search");
-var searchDiv = document.querySelector(".searchfunc");
-
-searchBtn.addEventListener('change',function(){
-    searchValue = searchBtn.value;
-    searchFunc(searchValue);
-    console.log(searchValue);
-});
-
-allBtn.addEventListener('click', function(){
-    console.log(completeTasks);
-    if(completeTasks.hasChildNodes()){
-    completeTasks.removeChild();
-    }
-    cmpBtn.disabled = false;
-    actBtn.disabled = false;
-});
-
-cmpBtn.addEventListener('click', function(){
-    console.log(completeTasks.childNodes);
-    if(completeTasks.hasChildNodes()){
-        completeTasks.childNodes.forEach(x => removeChild(x) ); 
-        }
-    allBtn.disabled = false;
-    actBtn.disabled = false;
-});
-
-
-actBtn.addEventListener('click', function(){
-    if(completeTasks.hasChildNodes()){
-        console.log(completeTasks);
-        completeTasks.childNodes.forEach(x => removeChild(x) ); 
-        }
-    cmpBtn.disabled = false;
-    allBtn.disabled = false;
-});
