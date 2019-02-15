@@ -483,3 +483,8 @@ function searchFunc(search) {
     }
 
 }
+
+function clearComplete() {
+    taskList = taskList.filter(x => x.status == "pending")
+
+}

@@ -397,3 +397,10 @@ main {
      width: 90%;
      padding-top: 55px;
 }
+
+.clear-cmp:hover {
+     color: #43b05c;
+     transform: scale(1.01);
+     transition: 0.1s ease-in-out;
+     cursor: pointer;
+}
