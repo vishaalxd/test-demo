@@ -55,15 +55,15 @@
 
                     <div class="pp-footer flexed">
                         <div class="ip-radio">
-                            <input type="radio" class="radio" />
+                            <input type="radio" class="radio r-personal" />
                             <label class="labels">Personal</label>
                         </div>
                         <div class="ip-radio">
-                            <input type="radio" class="radio" />
+                            <input type="radio" class="radio r-business" />
                             <label class="labels">Business</label>
                         </div>
                         <div class="ip-radio">
-                            <input type="radio" class="radio" />
+                            <input type="radio" class="radio r-other" />
                             <label class="labels">Other</label>
                         </div>
 
@@ -80,6 +80,15 @@
 
             <!--Search Bar-->
             <div class="search-bar flexed">
+                <div class="sort-type">
+                    <div class="sel-item" onclick="dropdown()">Select a Type <div class="caret"></div>
+                    </div>
+                    <ul class="list-panel overflow-hide">
+                        <li class="l-p" onclick="dropFilter('Personal')">Personal</li>
+                        <li class="l-b" onclick="dropFilter('Business')">Business</li>
+                        <li class="l-o" onclick="dropFilter('Other')">Other</li>
+                    </ul>
+                </div>
                 <div class="search-btn flexed">
                     <input type="text" class="ip-search" placeholder="search by task name" />
                     <div class="search">

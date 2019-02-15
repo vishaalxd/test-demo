@@ -194,7 +194,7 @@ main {
 .search-bar {
      width: 100%;
      height: 44px;
-     justify-content: flex-end;
+     justify-content: space-between;
 }
 
 .search-btn {
@@ -278,6 +278,9 @@ main {
      color: #43b05c;
      text-align: center;
      cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
 }
 
 .task-img:hover {
@@ -403,4 +406,104 @@ main {
      transform: scale(1.01);
      transition: 0.1s ease-in-out;
      cursor: pointer;
+}
+
+.tick {
+     background-color: white;
+     width: 3px;
+     height: 24px;
+     transform: rotate(-135deg)translate(-2px, 2px);
+}
+
+.tick::before {
+     content: "";
+     margin-left: 2px;
+     margin-top: -4px;
+     position: absolute;
+     background-color: white;
+     width: 3px;
+     height: 10px;
+     transform: rotate(90deg);
+}
+
+.bg-green {
+     background-color: #43b05c !important;
+}
+
+.sort-type {
+     /* position: absolute; */
+     height: 40px;
+     line-height: 40px;
+     cursor: pointer;
+}
+
+.sel-item:hover {
+     color: #43b05c;
+     transform: scale(1.018);
+     transition: 0.1s ease-in;
+}
+
+.sel-item {
+     height: 40px;
+     text-align: center;
+     color: #43b05c;
+     display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.list-panel {
+     z-index: 1;
+     /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); */
+     list-style: none;
+     position: absolute;
+     height: auto;
+     overflow: auto;
+     padding: 0px;
+     margin: 0;
+     transition: 0.4s ease-in;
+     border-radius: 7px;
+     border: 1px solid #43b05c;
+}
+
+li {
+     font-size: 14px;
+     width: 120px;
+     background-color: rgba(245, 245, 245, 0.979);
+     color: #43b05c;
+     padding-left: 10px;
+     margin: 0;
+     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.404);
+}
+
+li:hover {
+     color: white;
+     font-weight: 700;
+     background-color: #43b05c;
+}
+
+.overflow-hide {
+     overflow: hidden !important;
+     height: 0 !important;
+     transition: 0.3s ease-in-out;
+     border: none !important;
+}
+
+.caret {
+     margin-left: 20px;
+     height: 11px;
+     width: 2px;
+     background-color: #43b05c;
+     transform: rotate(-45deg);
+}
+
+.caret::after {
+     content: "";
+     position: absolute;
+     height: 11px;
+     width: 2px;
+     background-color: #43b05c;
+     transform: rotate(90deg);
+     margin-left: 4px;
+     margin-top: 5px;
 }
