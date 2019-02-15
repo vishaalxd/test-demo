@@ -9,7 +9,6 @@ var activeTasks = document.querySelector(".tasks-act");
 var cmpBtn = document.querySelector(".cmp");
 var allBtn = document.querySelector(".all");
 var actBtn = document.querySelector(".act");
-// var cmp = document.querySelector(".cmp");
 
 var taskList = [];
 var taskFiltered = [];
@@ -164,7 +163,6 @@ function completed() {
     if (completeTasks.hasChildNodes()) {
         var ele = document.querySelectorAll(".task-card");
         ele.forEach(y => console.log(y.parentNode))
-        // console.log("child:" + completeTasks.hasChildNodes());
         ele.forEach(x => {
             // console.log(x);
             x.remove()
@@ -223,12 +221,7 @@ function completed() {
                 console.table(taskList);
                 // console.table(x);
                 taskCard.remove(x);
-                // completeTasks.removeChild(taskCard);
-                // console.table(taskList);
             });
-
-            // var allTasks = document.querySelector(".all");
-
         });
     }
     else return null;
@@ -243,15 +236,6 @@ function AllTasksController() {
     taskPanel.classList.remove("hidden");
     completeTasks.classList.add("hidden");
     activeTasks.classList.add("hidden");
-
-    // if (taskPanel.hasChildNodes()) {
-    //     var ele = document.querySelectorAll(".task-card");
-    //     ele.forEach(x => {
-    //         taskPanel.removeChild(x)
-    //         console.log(x);
-    //     });
-
-    // }
     addAllView();
 }
 
@@ -268,14 +252,10 @@ function active() {
 
     if (activeTasks.hasChildNodes()) {
         var ele = document.querySelectorAll(".task-card");
-        // ele.forEach(y => console.log(y.parentNode))
-        // console.log("child:" + activeTasks.hasChildNodes());
         ele.forEach(x => {
             // console.log(x);
             x.remove();
-
-        });
-
+        })
     }
 
     if (taskList.length > 0) {
@@ -325,8 +305,6 @@ function active() {
                 console.table(taskList);
                 taskCard.remove(x);
             });
-
-
         });
     }
     // else
@@ -395,7 +373,6 @@ function addAllView() {
             document.querySelector(".item-left").innerText = `${taskList.length} item left`;
             // console.log(taskList);
         });
-
     });
 }
 
@@ -423,7 +400,6 @@ function searchFunc(search) {
         ele.forEach(x => {
             // console.log(x);
             x.remove()
-
         });
     }
 
@@ -473,8 +449,6 @@ function searchFunc(search) {
                 document.querySelector(".item-left").innerText = `${taskList.length} item left`;
                 console.log(taskList);
             });
-
-
         });
     }
     else {
