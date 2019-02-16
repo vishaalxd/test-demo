@@ -135,10 +135,6 @@ function validateData(data) {
 }
 
 function timeRemaining(date, time, taskCard) {
-
-    var currentHour = new Date().getHours();
-    // console.log(currentHour);
-    var timezies = time.split(":");
     var postDate = new Date(date + " " + time);
     // console.log(postDate);
     var currentDate = new Date();
@@ -410,11 +406,8 @@ function addAllView() {
         taskImg.innerText = title;
         taskTitle.innerText = x.title;
         taskDesc.innerText = x.desc;
+        taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
 
-        var timer = setTimeout(function () {
-            taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
-            console.log("looping");
-        }, 1000);
 
         // timeRemains;
 
