@@ -18,8 +18,8 @@
             <div class="add-btn">+</div>
         </section>
         <div class="nav-btn hidden">
-            <div class="back">Back</div>
-            <div class="next">Next</div>
+            <div class="back" onclick="seeAllFunc()">Back</div>
+            <div class="next" onclick="modelPop()">Add New</div>
         </div>
 
         <!--popup-->
@@ -42,6 +42,7 @@
                     <div class="pp-date-time flexed">
                         <div class="pp-date">
                             <div class="pp-add-task">Date</div>
+                            <span id="alert-date"></span>
                             <input class="ip landscape ipd" type="date" placeholder="mm/dd/yyyy" />
                         </div>
                         <div class="pp-time">
@@ -81,12 +82,14 @@
             <!--Search Bar-->
             <div class="search-bar flexed">
                 <div class="sort-type">
-                    <div class="sel-item" onclick="dropdown()">Select a Type <div class="caret"></div>
+                    <div class="sel-item" onclick="dropdown()">All <div class="caret"></div>
                     </div>
                     <ul class="list-panel overflow-hide">
+
                         <li class="l-p" onclick="dropFilter('Personal')">Personal</li>
                         <li class="l-b" onclick="dropFilter('Business')">Business</li>
                         <li class="l-o" onclick="dropFilter('Other')">Other</li>
+                        <li class="l-p" onclick="dropFilter()">All</li>
                     </ul>
                 </div>
                 <div class="search-btn flexed">
@@ -98,7 +101,7 @@
 
             <!--Tasks Container-->
             <p class="taskpanel-title">Tasks</p>
-            <section class="tasks-container">
+            <section class="tasks-container" id="cont-scroll">
                 <div class="searchfunc hidden"></div>
                 <div class="tasks"></div>
                 <div class="tasks-cmp hidden"></div>

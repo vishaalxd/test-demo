@@ -14,10 +14,12 @@ var taskList = [];
 var taskFiltered = [];
 
 // add task
-addButton.addEventListener('click', function () {
+addButton.addEventListener('click', modelPop);
+
+function modelPop() {
     modal.classList.remove("hidden");
     AllTasksController();
-});
+}
 
 modal.addEventListener('click', function (e) {
     modal.classList.add("hidden");
@@ -38,9 +40,6 @@ popup.addEventListener('click', function (e) {
 // Submit task 
 save.addEventListener('click', function () {
     var inputs = document.querySelectorAll(".ip");
-    // var radio1Btn = document.querySelector(".r-personal");
-    // var radio2Btn = document.querySelector(".r-business");
-    // var radio3Btn = document.querySelector(".r-other");
     var radioValue = document.querySelectorAll(".radio");
 
     var task = {}
@@ -84,13 +83,14 @@ save.addEventListener('click', function () {
         taskList.push(task);
 
 
-        console.log(taskList);
+        // console.log(taskList);
 
 
         addAllView();
         inputs.forEach(x => x.value = null);
         document.getElementById("alert-time").innerText = ""
         document.getElementById("alert-name").innerText = "";
+        document.getElementById("alert-date").innerText = "";
         radioValue.forEach(x => x.checked = false);
         modal.classList.add("hidden");
 
@@ -103,17 +103,26 @@ save.addEventListener('click', function () {
 
 function validateData(data) {
     // console.log(data);
+    var postDate = new Date(data.date);
     var timeUnits = data.time.split(":");
-
-
+    var currentDate = new Date();
+    var diffDayInSec = postDate.getTime() - currentDate.getTime();
+    var diffDays = Math.ceil(diffDayInSec / (1000 * 3600 * 24));
+    // console.log(diffDays);
     if (data.title.length) {
-        if (timeUnits[0] < 24 && timeUnits[1] < 60) {
-            // console.log("Hurray")
-            return true;
+        if (data.date && diffDays > -1) {
+            if (timeUnits[0] < 24 && timeUnits[1] < 60) {
+                // console.log("Hurray")
+                return true;
+            }
+            else {
+                // console.log("alert-time")
+                document.getElementById("alert-time").innerText = "Validate time format!"
+                return false;
+            }
         }
         else {
-            // console.log("alert-time")
-            document.getElementById("alert-time").innerText = "Validate time format!"
+            document.getElementById("alert-date").innerText = "Past Date wont be considered"
             return false;
         }
 
@@ -125,44 +134,61 @@ function validateData(data) {
 
 }
 
-function timeRemaining(date, time) {
-    var postDate = new Date(date);
-    // console.log(currentDate);
-    var currentDate = new Date();
-    var timeDiff = Math.abs(currentDate.getTime() - postDate.getTime());
-    var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+function timeRemaining(date, time, taskCard) {
 
     var currentHour = new Date().getHours();
     // console.log(currentHour);
     var timezies = time.split(":");
+    var postDate = new Date(date + " " + time);
+    // console.log(postDate);
+    var currentDate = new Date();
+    var timeDiff = Math.abs(postDate.getTime() - currentDate.getTime());
+    var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+    var milliseconds = (timeDiff % 1000) / 100;
+    var seconds = Math.floor((timeDiff / 1000) % 60);
+    var minutes = Math.floor((timeDiff / (1000 * 60) % 60));
+    var hours = Math.floor(timeDiff / (1000 * 60 * 60) % 24);
 
-    var timeChange = Math.abs(currentHour - timezies[0]);
-    // console.log(timeChange);
+    if (hours < 9) { hours = "0" + hours };
+    if (minutes < 9) { minutes = "0" + minutes };
+    if (seconds < 9) { seconds = "0" + seconds };
 
-    if (timeChange < 1) {
-        return `This is the last hour, Hope you make it!`;
-    }
-    if (!diffDays) {
-        // console.log(diffDays);
-        return `${timeChange} hours to go`;
+    console.log(diffDays + " " + hours + " " + minutes + " " + seconds);
+
+
+    if (diffDays) {
+        return `<div class="ctr-container"><span class="counter">${diffDays}</span>days, <div class="ctr-bold"><span class="counter">${hours}</span>:<span class="counter">${minutes}</span>:<span class="counter">${seconds}</span></div>  to go</div>`
     }
     else {
-        return `${diffDays} days and ${timeChange} hours to go`;
+        return ` <div class="ctr-containe"><div class="ctr-bold"><span class="counter">${hours}</span>hrs <span class="counter">${minutes}</span>mins <span class="counter">${seconds}</span>sec</div> to go</div>`
     }
 }
 
 
 var SeeAllBtn = document.querySelector(".see-all");
+
 SeeAllBtn.addEventListener('click', function () {
+    seeAllFunc()
+    SeeAllBtn.classList.add("hidden");
+})
+
+
+function seeAllFunc() {
+
+    //all See-all button here.
+    SeeAllBtn.classList.remove("hidden");
+
+
     var taskContainer = document.querySelector(".tasks-container");
+    var tasks = document.querySelector(".to-do-list");
+    tasks.style.marginTop = "60px";
     taskContainer.classList.toggle("see-all-active");
-    var main = document.querySelector("main");
-    main.classList.toggle("max-vh");
+    // taskContainer.classList.toggle("see");
     var toDoBtn = document.querySelector(".to-do-btn");
     toDoBtn.classList.toggle("hidden");
     var navBtns = document.querySelector(".nav-btn");
     navBtns.classList.toggle('hidden')
-});
+};
 
 
 function completed() {
@@ -177,7 +203,7 @@ function completed() {
 
     if (completeTasks.hasChildNodes()) {
         var ele = document.querySelectorAll(".task-card");
-        ele.forEach(y => console.log(y.parentNode))
+        // ele.forEach(y => console.log(y.parentNode))
         ele.forEach(x => {
             // console.log(x);
             x.remove()
@@ -189,7 +215,7 @@ function completed() {
         // console.log(taskFiltered);
 
         taskFiltered.map(x => {
-            console.log(taskList);
+            // console.log(taskList);
             var taskCard = document.createElement('div');
             var taskImg = document.createElement('div');
             var taskBox = document.createElement('div');
@@ -200,6 +226,12 @@ function completed() {
             var closeBtn = document.createElement('div');
 
 
+            var titleIcon = x.title.split(" ");
+            var title = [];
+            titleIcon.forEach(x =>
+                title.push(x[0]));
+            var title = title.join("");
+
             taskCard.className = "flexed task-card";
             taskImg.className = "task-img";
             taskBox.className = "flexed-col task-box"
@@ -209,10 +241,10 @@ function completed() {
             closeBtn.className = "close";
             taskClose.className = "close-tag"
 
-            taskImg.innerText = "x";
+            taskImg.innerText = title;
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
-            taskRemainder.innerText = "Completed";
+            taskRemainder.innerText = timeRemaining(x.date, x.time, taskCard);
             // timeRemains;
 
 
@@ -225,13 +257,19 @@ function completed() {
             taskCard.appendChild(taskClose);
             completeTasks.appendChild(taskCard);
 
+
+            document.querySelector(".item-left").innerText = `${taskFiltered.length} item left`;
+
             taskClose.addEventListener('click', function () {
                 var newtaskList
                 taskList = taskList.filter(y => y.title != x.title)
-                console.table(taskList);
+                // console.table(taskList);
                 // console.table(x);
                 taskCard.remove(x);
+                document.querySelector(".item-left").innerText = `${taskFiltered.length} item left`;
             });
+
+
         });
     }
     else return null;
@@ -276,7 +314,7 @@ function active() {
 
 
         taskFiltered.map(x => {
-            console.log(taskList);
+            // console.log(taskList);
             var taskCard = document.createElement('div');
             var taskImg = document.createElement('div');
             var taskBox = document.createElement('div');
@@ -287,6 +325,12 @@ function active() {
             var closeBtn = document.createElement('div');
 
 
+            var titleIcon = x.title.split(" ");
+            var title = [];
+            titleIcon.forEach(x =>
+                title.push(x[0]));
+            var title = title.join("");
+
             taskCard.className = "flexed task-card";
             taskImg.className = "task-img";
             taskBox.className = "flexed-col task-box"
@@ -296,13 +340,13 @@ function active() {
             closeBtn.className = "close";
             taskClose.className = "close-tag"
 
-            taskImg.innerText = "o";
+            taskImg.innerText = title;
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
-            taskRemainder.innerText = timeRemaining(x.date, x.time);
+            taskRemainder.innerText = timeRemaining(x.date, x.time, taskCard);
             // timeRemains;
 
-
+            document.querySelector(".item-left").innerText = `${taskFiltered.length} item left`;
             taskClose.appendChild(closeBtn);
             taskCard.appendChild(taskImg);
             taskCard.appendChild(taskBox);
@@ -314,9 +358,12 @@ function active() {
 
             taskClose.addEventListener('click', function () {
                 taskList = taskList.filter(y => y.title != x.title)
-                console.table(taskList);
+                // console.table(taskList);
                 taskCard.remove(x);
+                document.querySelector(".item-left").innerText = `${taskFiltered.length} item left`;
             });
+
+
         });
     }
     // else
@@ -327,7 +374,7 @@ function addAllView() {
     searchDiv.classList.add("hidden");
     if (taskPanel.hasChildNodes()) {
         var ele = document.querySelectorAll(".task-card");
-        ele.forEach(y => console.log(y.parentNode))
+        // ele.forEach(y => console.log(y.parentNode))
         // console.log("child:" + taskPanel.hasChildNodes());
         ele.forEach(x => {
             // console.log(x);
@@ -345,6 +392,13 @@ function addAllView() {
         var taskRemainder = document.createElement('div');
 
 
+        var titleIcon = x.title.split(" ");
+        var title = [];
+        titleIcon.forEach(x =>
+            title.push(x[0]));
+        var title = title.join("");
+
+
         taskCard.className = "flexed task-card";
         taskImg.className = "task-img";
         taskBox.className = "flexed-col task-box"
@@ -353,10 +407,15 @@ function addAllView() {
         taskRemainder.className = "task-rem"
 
 
-        taskImg.innerText = "T";
+        taskImg.innerText = title;
         taskTitle.innerText = x.title;
         taskDesc.innerText = x.desc;
-        taskRemainder.innerText = timeRemaining(x.date, x.time);
+
+        var timer = setTimeout(function () {
+            taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
+            console.log("looping");
+        }, 1000);
+
         // timeRemains;
 
 
@@ -371,7 +430,6 @@ function addAllView() {
             taskTitle.style.textDecoration = "line-through";
             taskDesc.style.textDecoration = "line-through";
         }
-
         document.querySelector(".item-left").innerText = `${taskList.length} item left`;
 
         taskImg.addEventListener('click', function () {
@@ -385,7 +443,6 @@ function addAllView() {
             taskImg.appendChild(tick);
 
             x.status = "completed";
-            document.querySelector(".item-left").innerText = `${taskList.length} item left`;
             // console.log(taskList);
         });
     });
@@ -398,7 +455,7 @@ var searchDiv = document.querySelector(".searchfunc");
 searchBtn.addEventListener('change', function () {
     searchValue = searchBtn.value;
     searchFunc(searchValue);
-    console.log(searchValue);
+    // console.log(searchValue);
 });
 
 
@@ -407,8 +464,8 @@ function searchFunc(search) {
     taskPanel.classList.add("hidden");
     completeTasks.classList.add("hidden");
     activeTasks.classList.add("hidden");
-    var viewTasks = taskList.filter(x => x.title.includes(search));
-    console.log(viewTasks);
+    var viewTasks = taskList.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    // console.log(viewTasks);
 
     if (searchDiv.hasChildNodes()) {
         var ele = document.querySelectorAll(".task-card");
@@ -428,6 +485,13 @@ function searchFunc(search) {
             var taskRemainder = document.createElement('div');
 
 
+
+            var titleIcon = x.title.split(" ");
+            var title = [];
+            titleIcon.forEach(x =>
+                title.push(x[0]));
+            var title = title.join("");
+
             taskCard.className = "flexed task-card";
             taskImg.className = "task-img";
             taskBox.className = "flexed-col task-box"
@@ -436,10 +500,10 @@ function searchFunc(search) {
             taskRemainder.className = "task-rem"
 
 
-            taskImg.innerText = "S";
+            taskImg.innerText = title;
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
-            taskRemainder.innerText = timeRemaining(x.date, x.time);
+            taskRemainder.innerText = timeRemaining(x.date, x.time, taskCard);
             // timeRemains;
 
 
@@ -455,15 +519,15 @@ function searchFunc(search) {
                 taskDesc.style.textDecoration = "line-through";
             }
 
-            document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-
+            document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
             taskImg.addEventListener('click', function () {
                 taskTitle.style.textDecoration = "line-through";
                 taskDesc.style.textDecoration = "line-through";
                 x.status = "completed";
                 document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-                console.log(taskList);
+                // console.log(taskList);
             });
+            // document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
         });
     }
     else {
@@ -474,7 +538,8 @@ function searchFunc(search) {
 }
 
 function clearComplete() {
-    taskList = taskList.filter(x => x.status == "pending")
+    taskList = taskList.filter(x => x.status == "pending");
+    document.querySelector(".item-left").innerText = `${taskList.length} item left`;
 
 }
 
@@ -483,16 +548,24 @@ function dropdown(e) {
 }
 
 function dropFilter(typeValue) {
+
     document.querySelector(".sel-item").innerHTML = typeValue;
     searchDiv.classList.remove("hidden");
     taskPanel.classList.add("hidden");
     completeTasks.classList.add("hidden");
     activeTasks.classList.add("hidden");
 
-
+    if (typeValue == undefined) {
+        searchDiv.classList.add("hidden");
+        taskPanel.classList.remove("hidden");
+        document.querySelector(".sel-item").innerHTML = "All Tasks";
+        document.querySelector(".list-panel").classList.add("overflow-hide");
+        addAllView();
+        return;
+    }
 
     var viewTasks = taskList.filter(x => x.type == typeValue);
-    console.log(viewTasks);
+    // console.log(viewTasks);
 
     if (searchDiv.hasChildNodes()) {
         var ele = document.querySelectorAll(".task-card");
@@ -513,6 +586,11 @@ function dropFilter(typeValue) {
         var closeBtn = document.createElement('div');
 
 
+        var titleIcon = x.title.split(" ");
+        var title = [];
+        titleIcon.forEach(x =>
+            title.push(x[0]));
+        var title = title.join("");
 
         taskCard.className = "flexed task-card";
         taskImg.className = "task-img";
@@ -524,10 +602,10 @@ function dropFilter(typeValue) {
         closeBtn.className = "close";
 
 
-        taskImg.innerText = "T";
+        taskImg.innerText = title;
         taskTitle.innerText = x.title;
         taskDesc.innerText = x.desc;
-        taskRemainder.innerText = timeRemaining(x.date, x.time);
+        taskRemainder.innerText = timeRemaining(x.date, x.time, taskCard);
 
         // timeRemains;
 
@@ -545,25 +623,27 @@ function dropFilter(typeValue) {
             taskDesc.style.textDecoration = "line-through";
         }
 
-        document.querySelector(".item-left").innerText = `${taskList.length} item left`;
+        document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
 
         taskImg.addEventListener('click', function () {
             taskTitle.style.textDecoration = "line-through";
             taskDesc.style.textDecoration = "line-through";
             x.status = "completed";
             document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-            console.log(taskList);
+            // console.log(taskList);
         });
+
 
         taskClose.addEventListener('click', function () {
             var newtaskList
             taskList = taskList.filter(y => y.title != x.title)
-            console.table(taskList);
+            // console.table(taskList);
             // console.table(x);
             taskCard.remove(x);
-        })
+            document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
+        });
 
 
     });
-
+    document.querySelector(".list-panel").classList.add("overflow-hide");
 }

@@ -243,7 +243,23 @@ main {
 
 .tasks-container {
      height: 250px;
+     width: 100%;
      overflow: hidden;
+}
+
+#cont-scroll::-webkit-scrollbar {
+     width: 4px;
+     /* background-color: #F5F5F5; */
+}
+
+#cont-scroll::-webkit-scrollbar-thumb {
+     background-color: #43b05c;
+}
+
+#cont-scroll::-webkit-scrollbar-track {
+     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+     background-color: #F5F5F5;
+     width: 3px;
 }
 
 .modes {
@@ -259,7 +275,7 @@ main {
 .m-active {
      border-radius: 20px;
      border: 1px solid #43b05c;
-     transition: 0.5s ease-in-out;
+     transition: 0.2s ease-in-out;
 }
 
 .item-left {
@@ -281,17 +297,18 @@ main {
      display: flex;
      align-items: center;
      justify-content: center;
+     text-transform: uppercase;
 }
 
 .task-img:hover {
      background-color: #43b05c;
      color: white;
      font-weight: 600;
-     transition: 0.1s ease-in;
+     transition: 0.2s ease-in;
 }
 
 .task-box {
-     width: 60%;
+     width: 50%;
 }
 
 .tasks {
@@ -326,7 +343,8 @@ main {
 }
 
 #alert-name,
-#alert-time {
+#alert-time,
+#alert-date {
      color: red;
      position: absolute;
      font-size: 14px;
@@ -341,6 +359,10 @@ main {
      margin: -19px 0px 0px 68px;
 }
 
+#alert-date {
+     margin: -19px 0px 0px 68px;
+}
+
 .see-all {
      padding-top: 10px;
      color: #43b05c;
@@ -350,8 +372,8 @@ main {
 }
 
 .see-all-active {
-     height: auto;
-     overflow: none;
+     height: 400px;
+     overflow-y: auto;
 }
 
 .all,
@@ -448,8 +470,8 @@ main {
      text-align: center;
      color: #43b05c;
      display: flex;
-justify-content: center;
-align-items: center;
+     justify-content: center;
+     align-items: center;
 }
 
 .list-panel {
@@ -461,31 +483,31 @@ align-items: center;
      overflow: auto;
      padding: 0px;
      margin: 0;
-     transition: 0.4s ease-in;
      border-radius: 7px;
-     border: 1px solid #43b05c;
+     box-shadow: 0px 0px 3px #43b05c;
+     transition: 0.3s ease;
 }
 
 li {
      font-size: 14px;
      width: 120px;
-     background-color: rgba(245, 245, 245, 0.979);
+     background-color: rgba(253, 253, 253, 0.959);
      color: #43b05c;
      padding-left: 10px;
      margin: 0;
-     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.404);
+     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.404);
 }
 
 li:hover {
      color: white;
-     font-weight: 700;
+     font-weight: 400;
      background-color: #43b05c;
 }
 
 .overflow-hide {
      overflow: hidden !important;
      height: 0 !important;
-     transition: 0.3s ease-in-out;
+     transition: 0.3s ease;
      border: none !important;
 }
 
@@ -506,4 +528,37 @@ li:hover {
      transform: rotate(90deg);
      margin-left: 4px;
      margin-top: 5px;
+}
+
+.ctr-container {
+     font-size: 14px;
+     color: #43b05c;
+     font-weight: lighter;
+}
+
+.ctr-containe {
+     color: #43b05c;
+}
+
+.counter {
+     font-size: 18px;
+     font-weight: 500;
+     color: rgb(36, 36, 36);
+     margin-right: 2px;
+     margin-left: 6px;
+     line-height: 25px;
+}
+
+.counter:nth-child(1) {
+     margin-left: 0px;
+}
+
+.ctr-bold {
+     display: inline-block;
+     color: #43b05c;
+     font-weight: normal;
+     padding: 0px 6px;
+     margin: 0 3px;
+     box-shadow: 0px 0px 5px #43B05C;
+     border-radius: 6px;
 }
