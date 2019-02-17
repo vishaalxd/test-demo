@@ -144,29 +144,32 @@ function timeRemaining(date, time, taskCard) {
     var seconds = Math.floor((timeDiff / 1000) % 60);
     var minutes = Math.floor((timeDiff / (1000 * 60) % 60));
     var hours = Math.floor(timeDiff / (1000 * 60 * 60) % 24);
-
-    if (hours < 9) { hours = "0" + hours };
-    if (minutes < 9) { minutes = "0" + minutes };
-    if (seconds < 9) { seconds = "0" + seconds };
-
-    console.log(diffDays + " " + hours + " " + minutes + " " + seconds);
-
-
-    if (diffDays) {
-        return `<div class="ctr-container"><span class="counter">${diffDays}</span>days, <div class="ctr-bold"><span class="counter">${hours}</span>:<span class="counter">${minutes}</span>:<span class="counter">${seconds}</span></div>  to go</div>`
+    // console.log(diffDays + " " + hours + " " + minutes + " " + seconds);
+    if (postDate.getTime() > currentDate.getTime()) {
+        if (diffDays) {
+            return `<div class="ctr-container"><span class="counter">${diffDays}</span>days, <span class="counter">${hours}</span>hours and <span class="counter">${minutes}</span>minutes to go</div>`
+        }
+        else {
+            if (hours < 9) { hours = "0" + hours };
+            if (minutes < 9) { minutes = "0" + minutes };
+            if (seconds < 9) { seconds = "0" + seconds };
+            return ` <div class="ctr-containe"><div class="ctr-bold"><span class="counter">${hours}</span>hrs <span class="counter">${minutes}</span>mins <span class="counter">${seconds}</span>sec</div> to go</div>`;
+        }
     }
     else {
-        return ` <div class="ctr-containe"><div class="ctr-bold"><span class="counter">${hours}</span>hrs <span class="counter">${minutes}</span>mins <span class="counter">${seconds}</span>sec</div> to go</div>`
+        if (hours < 9) { hours = "0" + hours };
+        if (minutes < 9) { minutes = "0" + minutes };
+        if (seconds < 9) { seconds = "0" + seconds };
+        taskCard.style.opacity = 0.3;
+        return ` <div class="ctr-containe"><div class="ctr-bold"><span class="counter">${hours}</span>hrs <span class="counter">${minutes}</span>mins <span class="counter">${seconds}</span>sec</div> ago</div>`;
     }
 }
 
 
 var SeeAllBtn = document.querySelector(".see-all");
-
 SeeAllBtn.addEventListener('click', function () {
     seeAllFunc()
     SeeAllBtn.classList.add("hidden");
-
 })
 
 
@@ -174,7 +177,6 @@ function seeAllFunc() {
 
     //all See-all button here.
     SeeAllBtn.classList.remove("hidden");
-
 
     var taskContainer = document.querySelector(".tasks-container");
     var tasks = document.querySelector(".to-do-list");
@@ -455,11 +457,12 @@ function addAllView() {
             x.status = "completed";
             // console.log(taskList);
         });
+
         taskClose.addEventListener('click', function () {
             taskList = taskList.filter(y => y.title != x.title)
             // console.table(taskList);
             taskCard.remove(x);
-            document.querySelector(".item-left").innerText = `${taskFiltered.length} item left`;
+            document.querySelector(".item-left").innerText = `${taskList.length} item left`;
         });
     });
 }
@@ -468,10 +471,10 @@ function addAllView() {
 var searchBtn = document.querySelector(".ip-search");
 var searchDiv = document.querySelector(".searchfunc");
 
-searchBtn.addEventListener('change', function () {
-    searchValue = searchBtn.value;
+searchBtn.addEventListener('change', function (e) {
+    searchValue = searchBtn.value || "all";
     searchFunc(searchValue);
-    // console.log(searchValue);
+    console.log(searchValue);
 });
 
 
@@ -480,7 +483,13 @@ function searchFunc(search) {
     taskPanel.classList.add("hidden");
     completeTasks.classList.add("hidden");
     activeTasks.classList.add("hidden");
-    var viewTasks = taskList.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    var viewTasks = [];
+    if (search == "all") {
+        viewTasks = taskList;
+    }
+    else {
+        viewTasks = taskList.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    }
     // console.log(viewTasks);
 
     if (searchDiv.hasChildNodes()) {
