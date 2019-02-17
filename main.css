@@ -319,6 +319,18 @@ main {
      justify-content: flex-start;
      padding: 12px;
      border-bottom: 1px solid #bbbbbb;
+     transition: 0.1s ease-out;
+}
+
+.task-card:hover {
+     transition: 0.1s ease-in;
+     border-bottom: 1.4px solid #43B05C;
+     transform: translateY(-1.4px);
+     background: rgba(131, 187, 144, 0.062);
+}
+
+.task-card:hover .close-tag {
+     display: block;
 }
 
 .task-name {
@@ -385,6 +397,7 @@ main {
 .close-tag {
      position: relative;
      cursor: pointer;
+     display: none;
 }
 
 .close {
@@ -532,12 +545,14 @@ li:hover {
 
 .ctr-container {
      font-size: 14px;
+     width: 300px;
      color: #43b05c;
      font-weight: lighter;
 }
 
 .ctr-containe {
      color: #43b05c;
+     width: 300px;
 }
 
 .counter {
@@ -555,6 +570,7 @@ li:hover {
 
 .ctr-bold {
      display: inline-block;
+     background: white;
      color: #43b05c;
      font-weight: normal;
      padding: 0px 6px;

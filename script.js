@@ -166,6 +166,7 @@ var SeeAllBtn = document.querySelector(".see-all");
 SeeAllBtn.addEventListener('click', function () {
     seeAllFunc()
     SeeAllBtn.classList.add("hidden");
+
 })
 
 
@@ -228,6 +229,10 @@ function completed() {
                 title.push(x[0]));
             var title = title.join("");
 
+            if (title.length > 1) {
+                finalTitle = title[0] + title[1]
+            } else finalTitle = title[0];
+
             taskCard.className = "flexed task-card";
             taskImg.className = "task-img";
             taskBox.className = "flexed-col task-box"
@@ -237,10 +242,10 @@ function completed() {
             closeBtn.className = "close";
             taskClose.className = "close-tag"
 
-            taskImg.innerText = title;
+            taskImg.innerText = finalTitle
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
-            taskRemainder.innerText = timeRemaining(x.date, x.time, taskCard);
+            taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
             // timeRemains;
 
 
@@ -327,6 +332,10 @@ function active() {
                 title.push(x[0]));
             var title = title.join("");
 
+            if (title.length > 1) {
+                finalTitle = title[0] + title[1]
+            } else finalTitle = title[0];
+
             taskCard.className = "flexed task-card";
             taskImg.className = "task-img";
             taskBox.className = "flexed-col task-box"
@@ -336,10 +345,10 @@ function active() {
             closeBtn.className = "close";
             taskClose.className = "close-tag"
 
-            taskImg.innerText = title;
+            taskImg.innerText = finalTitle;
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
-            taskRemainder.innerText = timeRemaining(x.date, x.time, taskCard);
+            taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
             // timeRemains;
 
             document.querySelector(".item-left").innerText = `${taskFiltered.length} item left`;
@@ -386,6 +395,8 @@ function addAllView() {
         var taskTitle = document.createElement('div');
         var taskDesc = document.createElement('div');
         var taskRemainder = document.createElement('div');
+        var closeBtn = document.createElement('div');
+        var taskClose = document.createElement('div');
 
 
         var titleIcon = x.title.split(" ");
@@ -394,6 +405,9 @@ function addAllView() {
             title.push(x[0]));
         var title = title.join("");
 
+        if (title.length > 1) {
+            finalTitle = title[0] + title[1]
+        } else finalTitle = title[0];
 
         taskCard.className = "flexed task-card";
         taskImg.className = "task-img";
@@ -401,9 +415,11 @@ function addAllView() {
         taskTitle.className = "task-name"
         taskDesc.className = "task-desc"
         taskRemainder.className = "task-rem"
+        closeBtn.className = "close";
+        taskClose.className = "close-tag"
 
 
-        taskImg.innerText = title;
+        taskImg.innerText = finalTitle
         taskTitle.innerText = x.title;
         taskDesc.innerText = x.desc;
         taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
@@ -411,12 +427,13 @@ function addAllView() {
 
         // timeRemains;
 
-
+        taskClose.appendChild(closeBtn);
         taskCard.appendChild(taskImg);
         taskCard.appendChild(taskBox);
         taskBox.appendChild(taskTitle);
         taskBox.appendChild(taskDesc);
         taskCard.appendChild(taskRemainder);
+        taskCard.appendChild(taskClose);
         taskPanel.appendChild(taskCard);
 
         if (x.status == "completed") {
@@ -437,6 +454,12 @@ function addAllView() {
 
             x.status = "completed";
             // console.log(taskList);
+        });
+        taskClose.addEventListener('click', function () {
+            taskList = taskList.filter(y => y.title != x.title)
+            // console.table(taskList);
+            taskCard.remove(x);
+            document.querySelector(".item-left").innerText = `${taskFiltered.length} item left`;
         });
     });
 }
@@ -485,6 +508,10 @@ function searchFunc(search) {
                 title.push(x[0]));
             var title = title.join("");
 
+            if (title.length > 1) {
+                finalTitle = title[0] + title[1]
+            } else finalTitle = title[0];
+
             taskCard.className = "flexed task-card";
             taskImg.className = "task-img";
             taskBox.className = "flexed-col task-box"
@@ -493,10 +520,10 @@ function searchFunc(search) {
             taskRemainder.className = "task-rem"
 
 
-            taskImg.innerText = title;
+            taskImg.innerText = finalTitle;
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
-            taskRemainder.innerText = timeRemaining(x.date, x.time, taskCard);
+            taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
             // timeRemains;
 
 
@@ -585,6 +612,10 @@ function dropFilter(typeValue) {
             title.push(x[0]));
         var title = title.join("");
 
+        if (title.length > 1) {
+            finalTitle = title[0] + title[1]
+        } else finalTitle = title[0];
+
         taskCard.className = "flexed task-card";
         taskImg.className = "task-img";
         taskBox.className = "flexed-col task-box";
@@ -595,10 +626,10 @@ function dropFilter(typeValue) {
         closeBtn.className = "close";
 
 
-        taskImg.innerText = title;
+        taskImg.innerText = finalTitle;
         taskTitle.innerText = x.title;
         taskDesc.innerText = x.desc;
-        taskRemainder.innerText = timeRemaining(x.date, x.time, taskCard);
+        taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
 
         // timeRemains;
 
