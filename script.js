@@ -471,7 +471,7 @@ function addAllView() {
 var searchBtn = document.querySelector(".ip-search");
 var searchDiv = document.querySelector(".searchfunc");
 
-searchBtn.addEventListener('change', function (e) {
+searchBtn.addEventListener('change', function () {
     searchValue = searchBtn.value || "all";
     searchFunc(searchValue);
     console.log(searchValue);
