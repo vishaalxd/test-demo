@@ -9,6 +9,7 @@ var allBtn = document.querySelector(".all");
 var actBtn = document.querySelector(".act");
 var radioValue = document.querySelectorAll(".radio");
 var searchBtn = document.querySelector('.ip-search');
+var popup = document.querySelector(".popup");
 
 var taskList = [];
 var taskFiltered = [];
@@ -19,12 +20,13 @@ function modelPop() {
     modal.classList.remove("hidden");
     addAllView();
 }
+
+// Event Listeners
 modal.addEventListener('click', function (e) {
     modal.classList.add("hidden");
 });
 
-//exit modal
-var popup = document.querySelector(".popup");
+//Exit modal
 popup.addEventListener('click', function (e) {
     e.stopPropagation();
 });
@@ -84,7 +86,20 @@ save.addEventListener('click', function () {
     }
 });
 
+// Search Button
+searchBtn.addEventListener('keyup', function (e) {
+    taskFiltered = taskList.filter(x => x.title.toLowerCase().includes(e.target.value.toLowerCase()));
+    createView(taskFiltered);
+});
 
+// See All Button
+SeeAllBtn.addEventListener('click', function () {
+    seeAllFunc()
+    SeeAllBtn.classList.add("hidden");
+});
+
+
+// Utility functions
 function validateData(data) {
     // console.log(data);
     var postDate = new Date(data.date);
@@ -145,77 +160,17 @@ function timeRemaining(date, time, taskCard) {
     }
 }
 
-
-SeeAllBtn.addEventListener('click', function () {
-    seeAllFunc()
-    SeeAllBtn.classList.add("hidden");
-})
-
-
 function seeAllFunc() {
     SeeAllBtn.classList.remove("hidden");
     var taskContainer = document.querySelector(".tasks-container");
     var tasks = document.querySelector(".to-do-list");
-    tasks.style.marginTop = "60px";
+    // tasks.style.marginTop = "70px";
     taskContainer.classList.toggle("see-all-active");
     // taskContainer.classList.toggle("see");
     var toDoBtn = document.querySelector(".to-do-btn");
     toDoBtn.classList.toggle("hidden");
     var navBtns = document.querySelector(".nav-btn");
     navBtns.classList.toggle('hidden')
-};
-
-
-function completed() {
-    allBtn.classList.remove("m-active");
-    cmpBtn.classList.add("m-active");
-    actBtn.classList.remove("m-active");
-
-    if (taskList.length > 0) {
-        taskFiltered = taskList.filter(x => x.status == "completed");
-        // console.log(taskFiltered);
-
-        createView(taskFiltered);
-    }
-    else return null;
-}
-
-
-function active() {
-    allBtn.classList.remove("m-active");
-    cmpBtn.classList.remove("m-active");
-    actBtn.classList.add("m-active");
-    if (taskList.length > 0) {
-        taskFiltered = taskList.filter(x => x.status == "pending");
-        createView(taskFiltered);
-    } else return null
-}
-
-
-function addAllView() {
-    allBtn.classList.add("m-active");
-    cmpBtn.classList.remove("m-active");
-    actBtn.classList.remove("m-active");
-    taskPanel.classList.remove("hidden");
-    if (taskList.length > 0) {
-        var taskFiltered = [...taskList];
-        console.log(taskFiltered);
-        createView(taskFiltered);
-    } else return null
-}
-
-// Search Button
-searchBtn.addEventListener('keyup', function (e) {
-    taskFiltered = taskList.filter(x => x.title.toLowerCase().includes(e.target.value.toLowerCase()));
-    createView(taskFiltered);
-});
-
-
-function clearComplete() {
-    console.log("clear");
-    taskList = taskList.filter(x => x.status == "pending");
-    document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-
 }
 
 function dropdown(e) {
@@ -236,6 +191,52 @@ function dropFilter(typeValue) {
     document.querySelector(".list-panel").classList.add("overflow-hide");
 }
 
+function addAllView() {
+    allBtn.classList.add("m-active");
+    cmpBtn.classList.remove("m-active");
+    actBtn.classList.remove("m-active");
+    taskPanel.classList.remove("hidden");
+    if (taskList.length > 0) {
+        var taskFiltered = [...taskList];
+        console.log(taskFiltered);
+        createView(taskFiltered);
+    } else {
+        var tasks = document.querySelector(".to-do-list");
+        tasks.classList.add("hidden");
+        return null
+    }
+}
+
+function completed() {
+    allBtn.classList.remove("m-active");
+    cmpBtn.classList.add("m-active");
+    actBtn.classList.remove("m-active");
+
+    if (taskList.length > 0) {
+        taskFiltered = taskList.filter(x => x.status == "completed");
+        // console.log(taskFiltered);
+
+        createView(taskFiltered);
+    }
+    else return null;
+}
+
+function active() {
+    allBtn.classList.remove("m-active");
+    cmpBtn.classList.remove("m-active");
+    actBtn.classList.add("m-active");
+    if (taskList.length > 0) {
+        taskFiltered = taskList.filter(x => x.status == "pending");
+        createView(taskFiltered);
+    } else return null
+}
+
+function clearComplete() {
+    console.log("clear");
+    taskList = taskList.filter(x => x.status == "pending");
+    document.querySelector(".item-left").innerText = `${taskList.length} item left`;
+
+}
 
 function createView(taskArray) {
     // console.log(taskArray);
@@ -301,7 +302,8 @@ function createView(taskArray) {
             if (x.status != "completed") {
                 taskTitle.style.textDecoration = "line-through";
                 taskDesc.style.textDecoration = "line-through";
-                taskImg.innerText = "";
+                taskImg.innerText = ""
+                taskImg.style.backgroundColor = "rgb(69, 189, 97)"
                 var tick = document.createElement('div');
                 tick.className = "tick"
 
@@ -315,7 +317,8 @@ function createView(taskArray) {
                 x.status = "pending";
                 taskTitle.style.textDecoration = "none";
                 taskDesc.style.textDecoration = "none";
-                taskImg.innerText = "";
+                taskImg.innerText = finalTitle;
+                taskImg.style.backgroundColor = "white"
                 var tick = document.createElement('div');
                 tick.className = "tick"
                 taskImg.classList.remove = "bg-green";

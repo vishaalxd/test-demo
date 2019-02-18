@@ -92,9 +92,11 @@
             <!--Search Bar-->
             <div class="search-bar flexed">
                 <div class="sort-type">
-                    <div class="sel-item" onclick="dropdown()">All
+                    <div style="display:flex;align-items:center;" onclick="dropdown()">
+                        <div class="sel-item">All
+                        </div>
+                        <div class="caret"></div>
                     </div>
-                    <div class="caret" onclick="dropdown()"></div>
                     <ul class=" list-panel overflow-hide">
 
                         <li class="l-p" id="prsnl" onclick="dropFilter('Personal')">Personal
