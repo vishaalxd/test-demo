@@ -92,9 +92,10 @@
             <!--Search Bar-->
             <div class="search-bar flexed">
                 <div class="sort-type">
-                    <div class="sel-item" onclick="dropdown()">All <div class="caret"></div>
+                    <div class="sel-item" onclick="dropdown()">All
                     </div>
-                    <ul class="list-panel overflow-hide">
+                    <div class="caret" onclick="dropdown()"></div>
+                    <ul class=" list-panel overflow-hide">
 
                         <li class="l-p" id="prsnl" onclick="dropFilter('Personal')">Personal
                         </li>
@@ -113,15 +114,15 @@
             <!--Tasks Container-->
             <p class="taskpanel-title">Tasks</p>
             <section class="tasks-container" id="cont-scroll">
-                <div class="searchfunc hidden"></div>
+                <!-- <div class="searchfunc hidden"></div> -->
                 <div class="tasks"></div>
-                <div class="tasks-cmp hidden"></div>
-                <div class="tasks-act hidden"></div>
+                <!-- <div class="tasks-cmp hidden"></div> -->
+                <!-- <div class="tasks-act hidden"></div> -->
             </section>
             <div class="see-all">See All</div>
             <div class="modes flexed">
                 <div class="item-left">No item Left</div>
-                <div class="all m-active" onclick="AllTasksController()">All</div>
+                <div class="all m-active" onclick="addAllView()">All</div>
                 <div class="cmp" onclick="completed()">Completed</div>
                 <div class="act" onclick="active()">Active</div>
                 <div class="clear-cmp" onclick="clearComplete()">Clear Completed</div>
