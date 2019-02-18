@@ -112,7 +112,7 @@ function validateData(data) {
     // console.log(diffDays);
     if (data.title.length) {
         if (data.date && diffDays > -1) {
-            if (timeUnits[0] < 24 && timeUnits[1] < 60) {
+            if (timeUnits[0] < 24 && timeUnits[1] < 60 && timeUnits[2] < 60) {
                 // console.log("Hurray")
                 return true;
             }
@@ -664,8 +664,6 @@ function dropFilter(typeValue) {
             taskCard.remove(x);
             document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
         });
-
-
     });
     document.querySelector(".list-panel").classList.add("overflow-hide");
 }

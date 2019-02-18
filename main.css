@@ -592,3 +592,19 @@ li:hover {
      margin-top: 12px;
      margin-left: -26px;
 }
+
+input[type="radio"] {
+     display: none;
+}
+
+input[type="radio"]:checked+.l-span {
+     background: #43B05C;
+}
+
+input[type="radio"]+.l-span {
+     display: inline-block;
+     background: #bbbbbb;
+     border-radius: 50%;
+     height: 12px;
+     width: 12px;
+}
