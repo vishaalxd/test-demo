@@ -298,21 +298,32 @@ function createView(taskArray) {
         document.querySelector(".item-left").innerText = `${taskList.length} item left`;
 
         taskImg.addEventListener('click', function () {
-            taskTitle.style.textDecoration = "line-through";
-            taskDesc.style.textDecoration = "line-through";
-            taskImg.innerText = "";
-            var tick = document.createElement('div');
-            tick.className = "tick"
+            if (x.status != "completed") {
+                taskTitle.style.textDecoration = "line-through";
+                taskDesc.style.textDecoration = "line-through";
+                taskImg.innerText = "";
+                var tick = document.createElement('div');
+                tick.className = "tick"
 
-            taskImg.classList.add = "bg-green";
-            taskImg.appendChild(tick);
+                taskImg.classList.add = "bg-green";
+                taskImg.appendChild(tick);
 
-            x.status = "completed";
-            // console.log(taskList);
+                x.status = "completed";
+                // console.log(taskList);
+            }
+            else {
+                x.status = "pending";
+                taskTitle.style.textDecoration = "none";
+                taskDesc.style.textDecoration = "none";
+                taskImg.innerText = "";
+                var tick = document.createElement('div');
+                tick.className = "tick"
+                taskImg.classList.remove = "bg-green";
+            }
         });
 
         taskClose.addEventListener('click', function () {
-            taskList = taskList.filter(y => y.title != x.title)
+            taskList = taskList.filter(y => y.title != x.title);
             // console.table(taskList);
             taskCard.remove(x);
             document.querySelector(".item-left").innerText = `${taskList.length} item left`;
