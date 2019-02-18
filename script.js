@@ -9,6 +9,7 @@ var activeTasks = document.querySelector(".tasks-act");
 var cmpBtn = document.querySelector(".cmp");
 var allBtn = document.querySelector(".all");
 var actBtn = document.querySelector(".act");
+var radioValue = document.querySelectorAll(".radio");
 
 var taskList = [];
 var taskFiltered = [];
@@ -36,12 +37,13 @@ popup.addEventListener('click', function (e) {
 });
 
 
+//Radio Buttons
 
 // Submit task 
 save.addEventListener('click', function () {
     var inputs = document.querySelectorAll(".ip");
     var radioValue = document.querySelectorAll(".radio");
-
+    console.log(radioValue);
     var task = {}
     var indexBtn;
 
@@ -91,9 +93,8 @@ save.addEventListener('click', function () {
         document.getElementById("alert-time").innerText = ""
         document.getElementById("alert-name").innerText = "";
         document.getElementById("alert-date").innerText = "";
-        radioValue.forEach(x => x.checked = false);
+        radioValue.forEach(x => x.removeAttribute('checked'));
         modal.classList.add("hidden");
-
     }
 
     else {
@@ -147,21 +148,21 @@ function timeRemaining(date, time, taskCard) {
     // console.log(diffDays + " " + hours + " " + minutes + " " + seconds);
     if (postDate.getTime() > currentDate.getTime()) {
         if (diffDays) {
-            return `<div class="ctr-container"><span class="counter">${diffDays}</span>days, <span class="counter">${hours}</span>hours and <span class="counter">${minutes}</span>minutes to go</div>`
+            return `<div class="ctr-container"><span class="counter">${diffDays}</span> days, <span class="counter">${hours}</span> hours to go</div>`
         }
         else {
-            if (hours < 9) { hours = "0" + hours };
-            if (minutes < 9) { minutes = "0" + minutes };
-            if (seconds < 9) { seconds = "0" + seconds };
-            return ` <div class="ctr-containe"><div class="ctr-bold"><span class="counter">${hours}</span>hrs <span class="counter">${minutes}</span>mins <span class="counter">${seconds}</span>sec</div> to go</div>`;
+            if (hours < 10) { hours = "0" + hours };
+            if (minutes < 10) { minutes = "0" + minutes };
+            if (seconds < 10) { seconds = "0" + seconds };
+            return ` <div class="ctr-containe"><div class="ctr-bold"><span class="counter">${hours}</span></div>hrs <div class="ctr-bold"><span class="counter">${minutes}</span></div>mins <div class="ctr-bold"><span class="counter">${seconds}</span></div>sec to go</div>`;
         }
     }
     else {
-        if (hours < 9) { hours = "0" + hours };
-        if (minutes < 9) { minutes = "0" + minutes };
-        if (seconds < 9) { seconds = "0" + seconds };
+        if (hours < 10) { hours = "0" + hours };
+        if (minutes < 10) { minutes = "0" + minutes };
+        if (seconds < 10) { seconds = "0" + seconds };
         taskCard.style.opacity = 0.3;
-        return ` <div class="ctr-containe"><div class="ctr-bold"><span class="counter">${hours}</span>hrs <span class="counter">${minutes}</span>mins <span class="counter">${seconds}</span>sec</div> ago</div>`;
+        return ` <div class="ctr-containe"><div class="ctr-bold"><span class="counter">${hours}</span></div>hrs <div class="ctr-bold"><span class="counter">${minutes}</span></div>mins <div class="ctr-bold"><span class="counter">${seconds}</span></div>sec ago</div>`;
     }
 }
 
@@ -247,7 +248,7 @@ function completed() {
             taskImg.innerText = finalTitle
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
-            taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
+            setInterval(function () { taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard); }, 1000);
             // timeRemains;
 
 
@@ -350,7 +351,7 @@ function active() {
             taskImg.innerText = finalTitle;
             taskTitle.innerText = x.title;
             taskDesc.innerText = x.desc;
-            taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
+            setInterval(function () { taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard); }, 1000);
             // timeRemains;
 
             document.querySelector(".item-left").innerText = `${taskFiltered.length} item left`;
@@ -424,7 +425,7 @@ function addAllView() {
         taskImg.innerText = finalTitle
         taskTitle.innerText = x.title;
         taskDesc.innerText = x.desc;
-        taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
+        setInterval(function () { taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard); }, 1000);
 
 
         // timeRemains;
@@ -468,29 +469,17 @@ function addAllView() {
 }
 
 
+
+// Search Button
 var searchBtn = document.querySelector(".ip-search");
 var searchDiv = document.querySelector(".searchfunc");
 
-searchBtn.addEventListener('change', function () {
-    searchValue = searchBtn.value || "all";
-    searchFunc(searchValue);
-    console.log(searchValue);
-});
-
-
-function searchFunc(search) {
+searchBtn.addEventListener('keyup', function (e) {
     searchDiv.classList.remove("hidden");
     taskPanel.classList.add("hidden");
     completeTasks.classList.add("hidden");
     activeTasks.classList.add("hidden");
-    var viewTasks = [];
-    if (search == "all") {
-        viewTasks = taskList;
-    }
-    else {
-        viewTasks = taskList.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-    }
-    // console.log(viewTasks);
+    viewTasks = taskList.filter(x => x.title.toLowerCase().includes(e.target.value.toLowerCase()));
 
     if (searchDiv.hasChildNodes()) {
         var ele = document.querySelectorAll(".task-card");
@@ -500,71 +489,71 @@ function searchFunc(search) {
         });
     }
 
-    if (search) {
-        viewTasks.length > 0 && viewTasks.map(x => {
-            var taskCard = document.createElement('div');
-            var taskImg = document.createElement('div');
-            var taskBox = document.createElement('div');
-            var taskTitle = document.createElement('div');
-            var taskDesc = document.createElement('div');
-            var taskRemainder = document.createElement('div');
+    viewTasks.length > 0 && viewTasks.map(x => {
+        var taskCard = document.createElement('div');
+        var taskImg = document.createElement('div');
+        var taskBox = document.createElement('div');
+        var taskTitle = document.createElement('div');
+        var taskDesc = document.createElement('div');
+        var taskRemainder = document.createElement('div');
 
 
 
-            var titleIcon = x.title.split(" ");
-            var title = [];
-            titleIcon.forEach(x =>
-                title.push(x[0]));
-            var title = title.join("");
+        var titleIcon = x.title.split(" ");
+        var title = [];
+        titleIcon.forEach(x =>
+            title.push(x[0]));
+        var title = title.join("");
 
-            if (title.length > 1) {
-                finalTitle = title[0] + title[1]
-            } else finalTitle = title[0];
+        if (title.length > 1) {
+            finalTitle = title[0] + title[1]
+        } else finalTitle = title[0];
 
-            taskCard.className = "flexed task-card";
-            taskImg.className = "task-img";
-            taskBox.className = "flexed-col task-box"
-            taskTitle.className = "task-name"
-            taskDesc.className = "task-desc"
-            taskRemainder.className = "task-rem"
-
-
-            taskImg.innerText = finalTitle;
-            taskTitle.innerText = x.title;
-            taskDesc.innerText = x.desc;
-            taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
-            // timeRemains;
+        taskCard.className = "flexed task-card";
+        taskImg.className = "task-img";
+        taskBox.className = "flexed-col task-box"
+        taskTitle.className = "task-name"
+        taskDesc.className = "task-desc"
+        taskRemainder.className = "task-rem"
 
 
-            taskCard.appendChild(taskImg);
-            taskCard.appendChild(taskBox);
-            taskBox.appendChild(taskTitle);
-            taskBox.appendChild(taskDesc);
-            taskCard.appendChild(taskRemainder);
-            searchDiv.appendChild(taskCard);
+        taskImg.innerText = finalTitle;
+        taskTitle.innerText = x.title;
+        taskDesc.innerText = x.desc;
+        setInterval(function () { taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard); }, 1000);
+        // timeRemains;
 
-            if (x.status == "completed") {
-                taskTitle.style.textDecoration = "line-through";
-                taskDesc.style.textDecoration = "line-through";
-            }
 
-            document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
-            taskImg.addEventListener('click', function () {
-                taskTitle.style.textDecoration = "line-through";
-                taskDesc.style.textDecoration = "line-through";
-                x.status = "completed";
-                document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-                // console.log(taskList);
-            });
-            // document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
+        taskCard.appendChild(taskImg);
+        taskCard.appendChild(taskBox);
+        taskBox.appendChild(taskTitle);
+        taskBox.appendChild(taskDesc);
+        taskCard.appendChild(taskRemainder);
+        searchDiv.appendChild(taskCard);
+
+        if (x.status == "completed") {
+            taskTitle.style.textDecoration = "line-through";
+            taskDesc.style.textDecoration = "line-through";
+        }
+
+        document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
+        taskImg.addEventListener('click', function () {
+            taskTitle.style.textDecoration = "line-through";
+            taskDesc.style.textDecoration = "line-through";
+            x.status = "completed";
+            document.querySelector(".item-left").innerText = `${taskList.length} item left`;
+            // console.log(taskList);
         });
-    }
-    else {
-        searchDiv.classList.add("hidden");
-        taskPanel.classList.remove("hidden");
-    }
+        // document.querySelector(".item-left").innerText = `${viewTasks.length} item left`;
+    });
 
-}
+    // else {
+    //     searchDiv.classList.add("hidden");
+    //     taskPanel.classList.remove("hidden");
+    // }
+
+});
+
 
 function clearComplete() {
     taskList = taskList.filter(x => x.status == "pending");
@@ -638,7 +627,7 @@ function dropFilter(typeValue) {
         taskImg.innerText = finalTitle;
         taskTitle.innerText = x.title;
         taskDesc.innerText = x.desc;
-        taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard);
+        setInterval(function () { taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard); }, 1000);
 
         // timeRemains;
 
