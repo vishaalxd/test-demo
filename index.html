@@ -49,12 +49,11 @@
                         <div class="pp-time">
                             <div class="pp-add-task">Time</div>
                             <span id="alert-time"></span>
-                            <input class="ip landscape ipt" type="text" placeholder="hh:mm:ss" />
+                            <input class="ip landscape ipt" type="time" placeholder="hh:mm:ss" />
                         </div>
                     </div>
 
                     <!--Submit & radio Button-->
-
                     <div class="pp-footer flexed">
                         <div class="ip-radio">
                             <label class="labels">
@@ -82,7 +81,6 @@
                             Save
                         </div>
                     </div>
-
                 </section>
             </div>
         </section>
@@ -98,7 +96,6 @@
                         <div class="caret"></div>
                     </div>
                     <ul class=" list-panel overflow-hide">
-
                         <li class="l-p" id="prsnl" onclick="dropFilter('Personal')">Personal
                         </li>
                         <li class="l-b" id="bus" onclick="dropFilter('Business')">Business</li>
@@ -116,10 +113,7 @@
             <!--Tasks Container-->
             <p class="taskpanel-title">Tasks</p>
             <section class="tasks-container" id="cont-scroll">
-                <!-- <div class="searchfunc hidden"></div> -->
                 <div class="tasks"></div>
-                <!-- <div class="tasks-cmp hidden"></div> -->
-                <!-- <div class="tasks-act hidden"></div> -->
             </section>
             <div class="see-all">See All</div>
             <div class="modes flexed">
@@ -128,14 +122,9 @@
                 <div class="cmp" onclick="completed()">Completed</div>
                 <div class="act" onclick="active()">Active</div>
                 <div class="clear-cmp" onclick="clearComplete()">Clear Completed</div>
-
             </div>
         </div>
-
-
-        <!--Task Container-->
     </main>
-
     <script src="script.js"></script>
 </body>
 

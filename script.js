@@ -78,6 +78,7 @@ save.addEventListener('click', function () {
         document.getElementById("alert-time").innerText = ""
         document.getElementById("alert-name").innerText = "";
         document.getElementById("alert-date").innerText = "";
+        radioValue[0].checked = true;
         radioValue.forEach(x => x.removeAttribute('checked'));
         modal.classList.add("hidden");
     }
@@ -102,14 +103,15 @@ SeeAllBtn.addEventListener('click', function () {
 // Utility functions
 function validateData(data) {
     // console.log(data);
-    var postDate = new Date(data.date);
-    var timeUnits = data.time.split(":");
+    var postDate = new Date(data.date + " " + data.time);
+    console.log(postDate);
     var currentDate = new Date();
     var diffDayInSec = postDate.getTime() - currentDate.getTime();
-    var diffDays = Math.ceil(diffDayInSec / (1000 * 3600 * 24));
+    var diffDays = Math.floor(diffDayInSec / (1000 * 3600 * 24));
+    console.log(diffDayInSec);
     if (data.title.length) {
         if (data.date && diffDays > -1) {
-            if (timeUnits[0] < 24 && timeUnits[1] < 60 && timeUnits[2] < 60) {
+            if (diffDayInSec > -1) {
                 // console.log("Hurray")
                 return true;
             }
@@ -295,6 +297,11 @@ function createView(taskArray) {
         if (x.status == "completed") {
             taskTitle.style.textDecoration = "line-through";
             taskDesc.style.textDecoration = "line-through";
+            var tick = document.createElement('div');
+            taskImg.innerText = ""
+            tick.className = "tick"
+            taskImg.style.backgroundColor = "rgb(69, 189, 97)"
+            taskImg.appendChild(tick);
         }
         document.querySelector(".item-left").innerText = `${taskList.length} item left`;
 
@@ -306,8 +313,6 @@ function createView(taskArray) {
                 taskImg.style.backgroundColor = "rgb(69, 189, 97)"
                 var tick = document.createElement('div');
                 tick.className = "tick"
-
-                taskImg.classList.add = "bg-green";
                 taskImg.appendChild(tick);
 
                 x.status = "completed";
