@@ -23,6 +23,9 @@ function modelPop() {
 
 // Event Listeners
 modal.addEventListener('click', function (e) {
+    document.getElementById("alert-time").innerText = ""
+    document.getElementById("alert-name").innerText = "";
+    document.getElementById("alert-date").innerText = "";
     modal.classList.add("hidden");
 });
 
@@ -35,7 +38,6 @@ popup.addEventListener('click', function (e) {
 save.addEventListener('click', function () {
     var inputs = document.querySelectorAll(".ip");
     var radioValue = document.querySelectorAll(".radio");
-    // console.log(radioValue);
     var task = {}
     var indexBtn;
 
@@ -60,7 +62,9 @@ save.addEventListener('click', function () {
     task.date = inputs[2].value;
     task.time = inputs[3].value;
     task.status = "pending";
-
+    document.getElementById("alert-time").innerText = ""
+    document.getElementById("alert-name").innerText = "";
+    document.getElementById("alert-date").innerText = "";
     //    --validation
     var valid = validateData(task);
     if (valid) {
@@ -72,12 +76,9 @@ save.addEventListener('click', function () {
         }
 
         taskList.push(task);
-        // console.log(taskList);
         addAllView();
         inputs.forEach(x => x.value = null);
-        document.getElementById("alert-time").innerText = ""
-        document.getElementById("alert-name").innerText = "";
-        document.getElementById("alert-date").innerText = "";
+        //
         radioValue[0].checked = true;
         radioValue.forEach(x => x.removeAttribute('checked'));
         modal.classList.add("hidden");
@@ -102,38 +103,34 @@ SeeAllBtn.addEventListener('click', function () {
 
 // Utility functions
 function validateData(data) {
-    // console.log(data);
     var postDate = new Date(data.date + " " + data.time);
-    console.log(postDate);
     var currentDate = new Date();
     var diffDayInSec = postDate.getTime() - currentDate.getTime();
     var diffDays = Math.floor(diffDayInSec / (1000 * 3600 * 24));
-    console.log(diffDayInSec);
-    if (data.title.length) {
-        if (data.date && diffDays > -1) {
-            if (diffDayInSec > -1) {
-                // console.log("Hurray")
-                return true;
-            }
-            else {
-                document.getElementById("alert-time").innerText = "Validate time format!"
-                return false;
-            }
-        }
-        else {
-            document.getElementById("alert-date").innerText = "Past Date wont be considered"
-            return false;
-        }
-    } else {
-        document.getElementById("alert-name").innerText = "Title Required!"
-        return false;
+    var flag = undefined;
+    if (data.title.length < 1) {
+        document.getElementById("alert-name").innerText = "Shouldn't this task have a name?"
+        flag = false;
+    }
+    if (!data.date) {
+        document.getElementById("alert-date").innerText = "Format! Enter Human Years."
+        flag = false;
+    }
+    if (!data.time) {
+        document.getElementById("alert-time").innerText = "Time is money!!"
+        flag = false;
+    }
+    if (diffDays < 0) {
+        document.getElementById("alert-date").innerText = "We only take upcoming events."
+        document.getElementById("alert-time").innerText = "We only take upcoming events."
+        flag = false;
     }
 
+    if (flag == undefined) { return true; }
 }
 
 function timeRemaining(date, time, taskCard) {
     var postDate = new Date(date + " " + time);
-    // console.log(postDate);
     var currentDate = new Date();
     var timeDiff = Math.abs(postDate.getTime() - currentDate.getTime());
     var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
@@ -166,9 +163,7 @@ function seeAllFunc() {
     SeeAllBtn.classList.remove("hidden");
     var taskContainer = document.querySelector(".tasks-container");
     var tasks = document.querySelector(".to-do-list");
-    // tasks.style.marginTop = "70px";
     taskContainer.classList.toggle("see-all-active");
-    // taskContainer.classList.toggle("see");
     var toDoBtn = document.querySelector(".to-do-btn");
     toDoBtn.classList.toggle("hidden");
     var navBtns = document.querySelector(".nav-btn");
@@ -216,8 +211,6 @@ function completed() {
 
     if (taskList.length > 0) {
         taskFiltered = taskList.filter(x => x.status == "completed");
-        // console.log(taskFiltered);
-
         createView(taskFiltered);
     }
     else return null;
@@ -234,14 +227,11 @@ function active() {
 }
 
 function clearComplete() {
-    console.log("clear");
     taskList = taskList.filter(x => x.status == "pending");
     document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-
 }
 
 function createView(taskArray) {
-    // console.log(taskArray);
     if (taskPanel.hasChildNodes()) {
         var ele = document.querySelectorAll(".task-card");
         ele.forEach(x => {
@@ -257,7 +247,6 @@ function createView(taskArray) {
         var taskRemainder = document.createElement('div');
         var closeBtn = document.createElement('div');
         var taskClose = document.createElement('div');
-
 
         var titleIcon = x.title.split(" ");
         var title = [];
@@ -278,12 +267,11 @@ function createView(taskArray) {
         closeBtn.className = "close";
         taskClose.className = "close-tag"
 
-
         taskImg.innerText = finalTitle
         taskTitle.innerText = x.title;
         taskDesc.innerText = x.desc;
+        //CountDown
         setInterval(function () { taskRemainder.innerHTML = timeRemaining(x.date, x.time, taskCard); }, 1000);
-        // timeRemains;
 
         taskClose.appendChild(closeBtn);
         taskCard.appendChild(taskImg);
@@ -304,7 +292,6 @@ function createView(taskArray) {
             taskImg.appendChild(tick);
         }
         document.querySelector(".item-left").innerText = `${taskList.length} item left`;
-
         taskImg.addEventListener('click', function () {
             if (x.status != "completed") {
                 taskTitle.style.textDecoration = "line-through";
