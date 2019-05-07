@@ -283,12 +283,12 @@ function createView(taskArray) {
         taskPanel.appendChild(taskCard);
 
         if (x.status == "completed") {
-            taskTitle.style.textDecoration = "line-through";
+            taskTitle.style.textDecoration = "line-through 1px #756283";
             taskDesc.style.textDecoration = "line-through";
             var tick = document.createElement('div');
             taskImg.innerText = ""
             tick.className = "tick"
-            taskImg.style.backgroundColor = "rgb(69, 189, 97)"
+            taskImg.style.backgroundColor = "#353a44"
             taskImg.appendChild(tick);
         }
         document.querySelector(".item-left").innerText = `${taskList.length} item left`;
@@ -297,11 +297,10 @@ function createView(taskArray) {
                 taskTitle.style.textDecoration = "line-through";
                 taskDesc.style.textDecoration = "line-through";
                 taskImg.innerText = ""
-                taskImg.style.backgroundColor = "rgb(69, 189, 97)"
+                taskImg.style.backgroundColor = "#353a44";
                 var tick = document.createElement('div');
                 tick.className = "tick"
                 taskImg.appendChild(tick);
-
                 x.status = "completed";
                 // console.log(taskList);
             }
@@ -310,10 +309,9 @@ function createView(taskArray) {
                 taskTitle.style.textDecoration = "none";
                 taskDesc.style.textDecoration = "none";
                 taskImg.innerText = finalTitle;
-                taskImg.style.backgroundColor = "white"
+                taskImg.style.backgroundColor = "#353a44"
                 var tick = document.createElement('div');
                 tick.className = "tick"
-                taskImg.classList.remove = "bg-green";
             }
         });
 

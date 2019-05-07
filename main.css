@@ -1,7 +1,7 @@
 body {
      margin: 0;
      padding: 0;
-     background-color: #43b05c;
+     background-color: #353a44;
      font-family: Helvetica, sans-serif
 }
 
@@ -25,8 +25,8 @@ main {
      width: 501px;
      height: 105px;
      border-radius: 51px;
-     box-shadow: 0 2px 4px 0 rgba(153, 153, 153, 0.5);
-     background-color: #ffffff;
+     box-shadow: 1px 2px 20px 2px rgba(0, 0, 0, 0.2);
+     background-color: #5d5068;
      transform: scale(0.9);
 }
 
@@ -34,7 +34,7 @@ main {
      font-family: Helvetica;
      font-size: 44px;
      font-weight: bold;
-     color: #999999;
+     color: #f599b7;
      margin-left: 20px;
 }
 
@@ -46,8 +46,8 @@ main {
      font-size: 60px;
      line-height: 60px;
      font-weight: lighter;
-     background-color: #43b05c;
-     color: white;
+     background-color: #353a44;
+     color: #089799;
      text-align: center;
      margin-right: 20px;
      cursor: pointer;
@@ -56,7 +56,7 @@ main {
 .modal {
      z-index: 1;
      position: absolute;
-     background-color: rgba(0, 0, 0, 0.603);
+     background-color: rgba(0, 0, 0, 0.503);
      height: 100%;
      width: 100%;
      display: flex;
@@ -73,7 +73,7 @@ main {
      width: 700px;
      height: 454px;
      border-radius: 14px;
-     background-color: #ffffff;
+     background-color: #353a44;
      padding: 10px;
 }
 
@@ -87,14 +87,14 @@ main {
      font-family: Helvetica;
      font-size: 24px;
      font-weight: bold;
-     color: #999999;
+     color: #089799;
 }
 
 .pp-add-task {
      font-family: Helvetica;
      font-size: 18px;
      font-weight: 300;
-     color: #43b05c;
+     color: #df678f;
 }
 
 .pp-container {
@@ -114,11 +114,12 @@ main {
      margin: 6px 0px;
      outline: none;
      border: none;
-     border-bottom: 1px solid #bbbbbb;
+     border-bottom: 1px solid #756283;
      font-family: Helvetica;
      font-size: 18px;
      font-weight: 300;
-     color: #bbbbbb;
+     color: #756283;
+     background: #353a44;
 }
 
 .flexed {
@@ -133,7 +134,7 @@ main {
 
 ::placeholder {
      font-size: 16px;
-     color: #bbbbbb;
+     color: #756283;
 }
 
 .pp-date-time>* {
@@ -149,7 +150,7 @@ main {
      font-size: 14px;
      font-weight: 300;
      padding-right: 20px;
-     color: #999999;
+     color: #df678f;
 }
 
 .ip-radio {
@@ -169,11 +170,11 @@ main {
      font-family: Helvetica;
      font-size: 18px;
      font-weight: bold;
-     color: #ffffff;
+     color: #089799;
      width: 141px;
      height: 51px;
      border-radius: 7px;
-     background-color: #43b05c;
+     border: 2px solid #756283;
      cursor: pointer;
 }
 
@@ -181,7 +182,7 @@ main {
      margin-top: 20px;
      width: 80%;
      height: auto;
-     background-color: #ffffff;
+     background-color: #32303a94;
      border-radius: 16px;
      padding: 20px 50px 20px 50px;
      margin-bottom: 20px;
@@ -200,16 +201,17 @@ main {
 .search-btn {
      width: 220px;
      height: 42px;
-     border: 1px solid #bbbbbbd2;
+     border: 1px solid #df678f;
      border-radius: 42px;
      cursor: pointer;
+     background-color: #353a44;
 }
 
 .search {
      position: relative;
      height: 12px;
      width: 12px;
-     border: 2px solid #43b05c;
+     border: 2px solid #089799;
      border-radius: 50%;
      transform: translateY(-2px);
 }
@@ -219,7 +221,7 @@ main {
      position: absolute;
      height: 7px;
      width: 2px;
-     background-color: #43b05c;
+     background-color: #089799;
      left: 13px;
      transform: rotate(-45deg);
      top: 10px
@@ -228,6 +230,8 @@ main {
 .ip-search {
      outline: none;
      border: none;
+     color: #089799;
+     background: #353a44;
      /* line-height:42px; */
 }
 
@@ -238,7 +242,7 @@ main {
      font-size: 32px;
      letter-spacing: 1.18px;
      font-weight: 300;
-     color: #43b05c;
+     color: #089799;
 }
 
 .tasks-container {
@@ -249,17 +253,18 @@ main {
 
 #cont-scroll::-webkit-scrollbar {
      width: 4px;
-     /* background-color: #F5F5F5; */
 }
 
 #cont-scroll::-webkit-scrollbar-thumb {
-     background-color: #43b05c;
+     border-radius: 4px;
+     background-color: #df678f;
 }
 
 #cont-scroll::-webkit-scrollbar-track {
      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-     background-color: #F5F5F5;
-     width: 3px;
+     background-color: #32303a94;
+     border-radius: 4px;
+     width: 4px;
 }
 
 .modes {
@@ -268,31 +273,32 @@ main {
 
 .modes>* {
      margin: 0px 10px;
-     color: #bbbbbb;
+     color: #089799;
      padding: 5px 20px;
 }
 
 .m-active {
      border-radius: 20px;
-     border: 1px solid #43b05c;
+     border: 1px solid #df678f;
      transition: 0.2s ease-in-out;
 }
 
 .item-left {
      position: absolute;
      left: 100px;
+     color: #df678f;
 }
 
 .task-img {
      height: 50px;
      width: 50px;
-     border: 1px solid #bbbbbb;
+     border: 1px solid #df678f;
      border-radius: 50%;
      margin-right: 30px;
-     font-size: 30px;
+     font-size: 20px;
      line-height: 50px;
-     background: white;
-     color: #43b05c;
+     color: #089799;
+     background: #353a44;
      text-align: center;
      cursor: pointer;
      display: flex;
@@ -302,8 +308,8 @@ main {
 }
 
 .task-img:hover {
-     background-color: rgb(69, 189, 97);
-     color: white;
+     background-color: #df678f;
+     color: #353a44;
      font-weight: 400;
      transition: 0.2s ease-in;
 }
@@ -319,15 +325,17 @@ main {
 .task-card {
      justify-content: flex-start;
      padding: 12px;
-     border-bottom: 1px solid #bbbbbb;
+     border-bottom: 1px solid #756283;
      transition: 0.1s ease-out;
+     border-radius: 12px;
 }
 
 .task-card:hover {
      transition: 0.1s ease-in;
-     border-bottom: 1.4px solid #43B05C;
+     border-bottom: 1.4px solid #089799;
      transform: translateY(-1.4px);
-     background: rgba(131, 187, 144, 0.062);
+     background: rgba(39, 39, 39, 0.356);
+     border-radius: 12px;
 }
 
 .task-card:hover .close-tag {
@@ -339,21 +347,21 @@ main {
 .task-name {
      font-size: 20px;
      font-weight: 300;
-     color: #616161;
+     color: #089799;
 }
 
 .task-desc {
      font-family: Helvetica;
      font-size: 14px;
      font-weight: 300;
-     color: #616161;
+     color: #df678f;
      padding-top: 8px;
 }
 
 .task-rem {
      font-size: 14px;
      font-weight: 300;
-     color: #616161;
+     color: #089799;
      padding-right: 30px;
      text-align: center;
 }
@@ -361,7 +369,7 @@ main {
 #alert-name,
 #alert-time,
 #alert-date {
-     color: red;
+     color: #089799;
      position: absolute;
      font-size: 14px;
      text-align: right;
@@ -381,9 +389,9 @@ main {
 
 .see-all {
      padding-top: 10px;
-     color: #43b05c;
+     color: #df678f;
      text-align: right;
-     width: 95%;
+     width: 97%;
      cursor: pointer;
 }
 
@@ -407,14 +415,14 @@ main {
 .close {
      width: 3px;
      height: 18px;
-     background-color: #43b05c;
+     background-color: #089799;
      transform: rotate(-45deg);
 }
 
 .close::after {
      content: "";
      position: absolute;
-     background-color: #43b05c;
+     background-color: #089799;
      height: 18px;
      width: 3px;
      transform: rotate(90deg);
@@ -426,9 +434,9 @@ main {
      padding: 8px 20px;
      height: 20px;
      font-size: 18px;
-     background: #43b05c;
-     color: white;
-     border: 1px solid white;
+     background: #353a44;
+     color: #df678f;
+     border: 2px solid #756283;
      border-radius: 20px;
 }
 
@@ -441,14 +449,14 @@ main {
 }
 
 .clear-cmp:hover {
-     color: #43b05c;
+     color: #df678f;
      transform: scale(1.01);
-     transition: 0.1s ease-in-out;
+     transition: 0.2s ease-in-out;
      cursor: pointer;
 }
 
 .tick {
-     background-color: white;
+     background-color: #df678f;
      width: 3px;
      height: 24px;
      transform: rotate(-135deg)translate(-2px, 2px);
@@ -459,14 +467,14 @@ main {
      margin-left: 2px;
      margin-top: -4px;
      position: absolute;
-     background-color: white;
+     background-color: #df678f;
      width: 3px;
      height: 10px;
      transform: rotate(90deg);
 }
 
 .bg-green {
-     background-color: #43b05c !important;
+     background-color: #353a44 !important;
 }
 
 .sort-type {
@@ -480,16 +488,17 @@ main {
 }
 
 .sel-item:hover {
-     color: #43b05c;
+     color: #089799;
      transform: scale(1.018);
      transition: 0.1s ease-in;
+     border-radius: 12px;
 }
 
 .sel-item {
      height: 40px;
      min-width: 95px;
      text-align: center;
-     color: #43b05c;
+     color: #089799;
      display: flex;
      justify-content: flex-start;
      align-items: center;
@@ -505,26 +514,32 @@ main {
      padding: 0px;
      margin-top: 95px;
      margin-left: 2px;
-     border-radius: 7px;
-     box-shadow: 0px 0px 3px #43b05c;
+     border-radius: 8px;
+     border: 1px solid rgb(53, 58, 68);
+     box-shadow: 0px 0px 3px #353a44;
      opacity: 1;
      transition: 0.6s ease;
+     background: #df678f;
 }
 
 li {
      font-size: 14px;
      width: 120px;
-     background-color: rgb(253, 253, 253);
-     color: #43b05c;
-     padding-left: 10px;
+     background-color: rgb(53, 58, 68);
+     text-align: left;
+     color: #df678f;
+     padding-left: 13px;
      margin: 0;
      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.404);
 }
 
 li:hover {
-     color: white;
+     
+     transition: 0.21s;
+     color: #089799;
      font-weight: 400;
-     background-color: #43b05c;
+     background-color: #3d3a46;
+    padding-left:10px;
 }
 
 .overflow-hide {
@@ -539,7 +554,7 @@ li:hover {
      margin-left: 20px;
      height: 10px;
      width: 2px;
-     background-color: #43b05c;
+     background-color: #089799;
      transform: rotate(-45deg);
 }
 
@@ -548,7 +563,7 @@ li:hover {
      position: absolute;
      height: 10px;
      width: 2px;
-     background-color: #43b05c;
+     background-color: #089799;
      transform: rotate(90deg);
      margin-left: 4px;
      margin-top: 4px;
@@ -557,12 +572,12 @@ li:hover {
 .ctr-container {
      font-size: 14px;
      width: 300px;
-     color: #43b05c;
+     color: #089799;
      font-weight: lighter;
 }
 
 .ctr-containe {
-     color: #43b05c;
+     color: #089799;
      width: 300px;
 }
 
@@ -584,20 +599,22 @@ li:hover {
 .ctr-bold {
      position: relative;
      display: inline-block;
-     color: white;
+     color: #089799;
      width: 24px;
-     background: #35924bd7;
+     background: #353a44;
      font-weight: normal;
      padding: 4px 4px;
      margin: 0 3px;
-     box-shadow: 0px 3px 1px rgba(67, 176, 92, 0.479);
+     box-shadow: 0px 1px 3px #df678f;
      border-radius: 6px;
 }
 
 .ctr-bold::after {
      content: "";
-     background: white;
+     background: #2b2931;
+     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
      position: absolute;
+     z-index: -1;
      width: 32px;
      height: 1px;
      margin-top: 12px;
@@ -609,13 +626,16 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked+.l-span {
-     background: #43B05C;
+     background: #ffe48b;
+     width: 8px;
+     height: 8px;
+     border: 2px solid #756283;
 }
 
 input[type="radio"]+.l-span {
      display: inline-block;
-     background: #bbbbbb;
+     background: #756283;
      border-radius: 50%;
-     height: 12px;
-     width: 12px;
+     height: 11px;
+     width: 11px;
 }
